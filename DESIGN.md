@@ -1,4 +1,34 @@
 # Diseño · Notaría 80
-Identidad explícita del kit: bosque #12451D, salvia #415942, noche #0F2416, marfil #F6F4EE, piedra #E4E1D8, latón #CAB990, nogal #3B2A22, tinta #141C16.
-Cormorant Garamond para titulares, Manrope para UI. Tipografía serif fluida 40-96 px. Texto 16-18 px. Layout de 1280 px máximo, márgenes móviles 24 px. Hero dividido, fotos reales como pruebas. Servicios en dos columnas editoriales. Galería con proporciones variadas y captions funcionales.
-Botones rectos con radio 2 px, mínimo 48 px. Sin sombras decorativas. Oscuro solo en la sección de proceso y pie, conforme al brief. Foco con contorno de alto contraste. Latón reservado a grandes numerales y líneas en superficies oscuras.
+Concepto: el recinto. Mármol (marfil), muro de lamas (noche), madera y latón.
+
+Paleta:
+- bosque #12451D: marca y botón;
+- salvia #415942: texto secundario sobre claro;
+- noche #0F2416: superficies oscuras;
+- marfil #F6F4EE: lectura;
+- piedra #E4E1D8: pausa;
+- latón #CAB990: filetes y numerales sobre oscuro, nunca texto sobre claro;
+- tinta #141C16: texto;
+- niebla #A7ADA5: texto secundario sobre oscuro.
+
+Tipografía:
+- Bodoni Moda (eje óptico) en titulares, con cursiva solo en la segunda mitad de cada titular.
+- Instrument Sans en texto e interfaz.
+- Escala fluida con clamp(): display 48 a 120 px, h1 42 a 96, h2 34 a 68, h3 23 a 32, texto 16 a 17.
+
+Forma y espacio:
+- Radio 0 en todo.
+- Botones de 52 px con flecha en celda propia.
+- Secciones de 80 a 160 px.
+- Ancho máximo de 1440 px.
+- Margen lateral de 20 a 64 px.
+
+Movimiento: solo transform y opacity.
+- Curvas: cubic-bezier(.23,1,.32,1) para entradas y cubic-bezier(.77,0,.175,1) para recorridos.
+- Hero coreografiado en CSS.
+- Revelados una sola vez al hacer scroll.
+- Paralaje con animation-timeline.
+- ViewTransition entre páginas.
+- Movimiento reducido respetado en todo.
+
+Guía viva en /styleguide; porqués en DECISIONES.md.

@@ -2,21 +2,36 @@
 
 ## Confirmación del cliente
 
-- Correo definitivo: se utiliza **notaria80gdl@hotmail.com**. El portafolio alterna hotmail y gmail.
-- Número de salas: el portafolio alterna cinco y seis. Se publica **salas de firmas privadas**, sin cifra.
-- Ratificar los tres teléfonos de llamada del sitio anterior: 33 1983 3354, 33 1983 3355 y 33 3630 6433.
-- Sustituir fotografías extraídas del PDF por originales de alta resolución cuando estén disponibles.
-- Retrato de la titular y fotografía de fachada: no proporcionados. El sitio funciona sin ellos.
-- Aviso de privacidad integral: **borrador en revisión**, pendiente de validar responsable, finalidades, transferencias, conservación, derechos y contacto competente.
+- **Correo:** se utiliza **notaria80gdl@hotmail.com**. El portafolio alterna hotmail y gmail.
+- **Número de salas:** el portafolio alterna cinco y seis. Se publica «salas de firmas privadas», sin cifra.
+- **Teléfonos:** ratificar los tres de llamada del sitio anterior (33 1983 3354, 33 1983 3355 y 33 3630 6433).
+- **Fotografías en alta resolución:** sustituirlas cuando estén disponibles, con el mismo nombre de archivo. La gradación se aplica sola en `npm run build`. Con originales de 2000 px o más se podría llevar alguna foto a sangre en escritorio (hoy solo el emblema va a sangre, y solo en móvil).
+- **Retrato de la titular y fachada:** no proporcionados. `/notaria` resuelve el perfil con tipografía y una foto de la biblioteca. Si llega un retrato real, su lugar natural es la columna de la foto en «Formación y credenciales».
+- **Textos de «qué es» de cada área** (`intro` en `site.config.ts`): descripciones generales de cada figura notarial, redactadas para el rediseño. Conviene que la notaría las lea antes del lanzamiento.
+- **Aviso de privacidad:** sigue como **borrador en revisión**. Falta validar responsable, finalidades, transferencias, conservación, derechos y contacto competente.
 
 ## Antes del lanzamiento
 
-- Desplegar en Vercel, configurar el dominio y validar las redirecciones de las rutas antiguas con el dominio real.
-- Repetir Lighthouse sobre el dominio desplegado; el informe local es una medición de laboratorio, no una garantía de red móvil real.
-- Dependencias de lint: npm audit informa cinco hallazgos de severidad alta en la cadena de desarrollo eslint-config-next → fast-glob → micromatch → braces. No existe actualización corregida de braces en el registro a la fecha de ejecución (3.0.3). No se emplea esta cadena en la entrega estática; auditoría de dependencias de producción sin vulnerabilidades. Actualizar cuando haya corrección mantenida, sin degradar Next a una versión anterior para silenciar el informe.
+- **Despliegue:**
+  - desplegar en Vercel y configurar el dominio;
+  - validar las redirecciones nuevas (`/nosotros.html` → `/notaria/`, `/servicios.html` → `/servicios/`, `/ubicacion.html` → `/contacto/`).
+- **Lighthouse en el dominio:** repetirlo sobre el dominio desplegado. Las cifras de `docs/VERIFICACION.md` son de laboratorio local.
+- **Revisión en teléfonos reales** (iOS Safari y Android Chrome):
+  - barra inferior y `safe-area`;
+  - menú a pantalla completa;
+  - transiciones de página: en Safari sin soporte completo de View Transitions, la navegación cambia sin animación.
+- **Archivo de Figma:** si se usa como referencia, actualizarlo con el sistema de `/styleguide`. El archivo actual corresponde a la primera versión.
+- **Dependencias de lint:** `npm audit` informa hallazgos altos en la cadena de desarrollo eslint-config-next → fast-glob → micromatch → braces, sin versión corregida publicada. No llegan a la entrega estática. Actualizar cuando haya corrección.
 
 ## Resuelto por autorización expresa
 
-El usuario confirmó expresamente autorización de **testimonios, cédulas Federal 2393029 y Estatal 110366, e insignias institucionales**. Están incluidos; no requieren una nueva autorización.
+El usuario confirmó la autorización de **testimonios, cédulas (federal 2393029 y estatal 110366) e insignias institucionales**. Están incluidos y no requieren una nueva autorización.
 
-No se publica estacionamiento, redes sociales, foto ficticia de la titular ni un número no confirmado de salas. No se han usado imágenes de stock ni imágenes generadas.
+No se publica:
+
+- estacionamiento;
+- redes sociales;
+- un retrato ficticio de la titular;
+- un número no confirmado de salas.
+
+No se usan imágenes de stock ni generadas.

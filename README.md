@@ -1,6 +1,20 @@
 # Notaría Pública 80 de Guadalajara
 
-Sitio institucional responsivo orientado a WhatsApp y llamadas. Next.js App Router + TypeScript + Tailwind CSS, exportación completamente estática. Sin servidor de formularios, base de datos ni autenticación.
+Sitio institucional orientado a WhatsApp y llamadas. Está hecho con Next.js 16 (App Router), TypeScript, Tailwind CSS 4 y `motion`. Se exporta como sitio completamente estático: sin servidor de formularios, sin base de datos y sin autenticación.
+
+## Páginas
+
+| Ruta | Contenido |
+| --- | --- |
+| `/` | Hero, cifras, índice de servicios, recinto, instituciones, testimonio y cierre |
+| `/servicios` | Índice editorial de las siete áreas |
+| `/servicios/[slug]` | Una página por área: qué es, actos, proceso y WhatsApp prellenado |
+| `/proceso` | Las cinco etapas con progreso ligado al scroll, y el detalle de 10 pasos |
+| `/instalaciones` | Galería editorial y accesibilidad |
+| `/notaria` | Titular, formación, cédulas, trayectoria, forma de trabajo e instituciones |
+| `/contacto` | Asistente de cita, teléfonos, dirección, horario y mapa diferido |
+| `/aviso-de-privacidad` | Borrador en revisión |
+| `/styleguide` | Sistema de diseño vivo (sin indexar) |
 
 ## Desarrollo
 
@@ -11,50 +25,68 @@ npm install
 npm run dev
 ```
 
-Abra http://localhost:3000. Si el puerto está ocupado, Next indicará el alternativo.
-
 ## Compilación y vista de producción
 
 ```sh
 npm run lint
 npm run typecheck
-npm run build
-npm start
+npm run build   # regenera las fotos con gradación, el logotipo y los íconos, y exporta a out/
+npm start       # http://localhost:3080 (otro puerto: PORT=3081 npm start)
 ```
-
-La exportación queda en `out/`. Vista de producción: http://localhost:3080. Se puede elegir otro puerto con `PORT=3081 npm start`. El servidor local aplica compresión Brotli/gzip para reproducir la entrega estática de un CDN.
 
 ## Despliegue
 
-Importar este repositorio en Vercel. `vercel.json` define `npm run build`, directorio `out/`, cabeceras y redirecciones permanentes de las rutas anteriores hacia las secciones correspondientes. Configure el dominio `notaria80gdl.mx` en Vercel. No hay secretos o variables obligatorias. Este trabajo no cambia DNS ni publica el sitio automáticamente.
+Importar el repositorio en Vercel. `vercel.json` define:
+
+- el comando `npm run build`;
+- el directorio `out/`;
+- las cabeceras;
+- las redirecciones permanentes de las rutas del sitio anterior.
+
+Configure el dominio `notaria80gdl.mx`. No hay secretos ni variables obligatorias.
 
 ## Contenido y contacto
 
-`src/site.config.ts` centraliza WhatsApp, teléfonos, mensajes, servicios, proceso, instituciones y galería. WhatsApp único: 33 1170 4104. Los tres números de teléfono solo reciben enlaces de llamada. Las coordenadas provienen del enlace de Google Maps proporcionado.
+`src/site.config.ts` centraliza:
 
-El asistente selecciona trámite y pide nombre/día opcional. Muestra el mensaje para revisión y abre WhatsApp; no guarda datos, no confirma citas ni envía mensajes automáticamente. Google Maps solo se carga al pulsar Mostrar mapa. El aviso de privacidad es un borrador visible y excluido de indexación.
+- WhatsApp (único: 33 1170 4104), teléfonos (solo `tel:`) y mensajes prellenados;
+- las siete áreas, con slug, descripción, actos y foto;
+- el proceso;
+- las fotos, con su texto alternativo;
+- las instituciones y los testimonios;
+- la trayectoria de la titular.
+
+## Sistema de diseño
+
+Tokens, escala tipográfica, superficies, botones y movimiento están en `src/app/globals.css` y se ven en `/styleguide`. Las decisiones y su porqué están en `DECISIONES.md`; el análisis previo, en `docs/ANALISIS_REDISENO.md`.
 
 ## Assets
 
-Los originales están en `public/assets/fotos/` y `public/assets/logo/`. `npm run assets` regenera cuatro tamaños WebP, íconos y Open Graph. Se conservan los PNG y JPG de respaldo; los SVG son trazados reales del canal alfa, no PNG incrustados ni una reinterpretación del logo. Al sustituir fotos por originales de mayor resolución, mantenga los nombres y actualice dimensiones en `site.config.ts` si cambian las proporciones.
+Los originales están en `public/assets/fotos/` y `public/assets/logo/`. `npm run assets`, que también corre en el build, se encarga de:
 
-Fuentes WOFF2 locales y licencias en `src/fonts/`. No se cargan tipografías de Google en el navegador.
+- aplicar la gradación uniforme y generar cuatro tamaños WebP de cada foto;
+- generar `logo-n80.svg` (el trazado original con aire, usado como máscara);
+- generar los favicons y la imagen Open Graph.
+
+Para sustituir una foto por un original de mayor resolución, conserve el nombre del archivo y actualice sus dimensiones en `site.config.ts`.
 
 ## Verificación
 
 ```sh
-npx playwright install chromium
 npm start
-# En otra terminal:
-npm run test:e2e
-npm run audit
+# en otra terminal:
+npm run test:e2e   # contacto, presencia de WhatsApp, desbordes, axe, teclado y movimiento reducido
+npm run audit      # Lighthouse móvil por página → docs/audits/
+node scripts/capturas.cjs http://localhost:3080 docs/screenshots/despues / /servicios/ …
 ```
 
-Las pruebas usan Chromium visible y el sitio estático local. `TARGET_URL` permite otra URL. Las aperturas de WhatsApp se interceptan para comprobar el destino sin enviar mensajes. Se verifican las tres páginas en 390, 768 y 1440 px, seis CTAs de servicio, asistente, errores, navegación, galería, mapa diferido y movimiento reducido. Capturas en `docs/screenshots/`, resultados en `docs/verificacion.json` y Lighthouse en `docs/audits/`.
+Los resultados están en `docs/VERIFICACION.md` y `docs/verificacion.json`.
 
 ## Documentación
 
-- `DECISIONES.md`: dirección de arte, arquitectura y Figma.
-- `PENDIENTES.md`: datos por confirmar y preparación de lanzamiento.
-- `CREDITOS.md`: fuentes y materiales.
-- `docs/CRITICA.md`: revisión independiente y correcciones.
+- `DECISIONES.md`: dirección de arte, arquitectura, movimiento y su porqué.
+- `PENDIENTES.md`: datos por confirmar y preparación del lanzamiento.
+- `CREDITOS.md`: fuentes, tipografías y materiales.
+- `docs/ANALISIS_REDISENO.md`: diagnóstico, estudio de Garante Jurídico y referencias, mapa de páginas.
+- `docs/CRITICA.md`: ronda de crítica y correcciones.
+- `docs/screenshots/`: capturas antes, después, referencias y comparativas.

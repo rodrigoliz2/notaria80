@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": ["docs/**", "out/**"],
+    "ignoreValues": [
+      {
+        "rule": "serif-default",
+        "value": "Bodoni Moda",
+        "createdAt": "2026-10-08T23:00:00.000Z",
+        "reason": "Agent: serif justificada por la marca (logotipo caligráfico, documento notarial); comparada con Cormorant y Newsreader en docs/screenshots/referencias/comparativa-tipografica.png"
+      },
+      {
+        "rule": "theme-lock",
+        "value": "s-marfil/s-noche/s-piedra/s-bosque",
+        "createdAt": "2026-10-08T23:00:00.000Z",
+        "reason": "Agent: el encargo pide alternar secciones claras y oscuras (mármol y lamas) para dar ritmo; cuatro superficies con función fija, documentadas en DECISIONES.md"
+      },
+      {
+        "rule": "section-numbering",
+        "value": ".marker",
+        "createdAt": "2026-10-08T23:00:00.000Z",
+        "reason": "Agent: el encargo pide numerar secciones; se usa solo un numeral de latón con filete, sin etiqueta en mayúsculas"
+      }
+    ]
+  }
+}

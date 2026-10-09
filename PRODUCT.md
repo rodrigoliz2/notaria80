@@ -9,7 +9,7 @@ Personas y empresas de Guadalajara que necesitan orientación y trámites notari
 ## Product Purpose
 Facilitar contacto por WhatsApp o llamada con la Notaría Pública 80.
 ## Capabilities and Constraints
-Una landing responsiva, páginas legales, asistente de cita sin servidor ni almacenamiento. Solo fotografías reales. Sin splash, stock, retratos inventados, autenticación ni base de datos.
+Sitio responsivo de varias páginas con transiciones (inicio, servicios y siete áreas, proceso, instalaciones, la notaría, contacto, aviso de privacidad y 404), con un asistente de cita sin servidor ni almacenamiento. Solo fotografías reales. Sin splash, stock, retratos inventados, autenticación ni base de datos.
 ## Brand Commitments
 Identidad del kit: logotipo caligráfico, verde bosque, mármol, madera y latón. Institucional, sereno, premium. Referencia de oficio: Garante Jurídico.
 ## Evidence on Hand

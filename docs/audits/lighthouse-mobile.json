@@ -1,5 +1,23 @@
 [
   {
+    "ruta": "/",
+    "performance": 97,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "LCP": "2.5 s",
+    "CLS": "0",
+    "TBT": "10 ms",
+    "pendientes": [
+      "largest-contentful-paint (2.5 s)",
+      "unused-javascript (Est savings of 47 KiB)",
+      "image-delivery-insight (Est savings of 165 KiB)",
+      "legacy-javascript-insight (Est savings of 12 KiB)",
+      "network-dependency-tree-insight",
+      "render-blocking-insight (Est savings of 120 ms)"
+    ]
+  },
+  {
     "ruta": "/servicios/",
     "performance": 99,
     "accessibility": 100,
@@ -9,30 +27,98 @@
     "CLS": "0",
     "TBT": "10 ms",
     "pendientes": [
+      "mainthread-work-breakdown (5.0 s)",
+      "bootup-time (4.6 s)",
       "unused-javascript (Est savings of 50 KiB)",
       "image-delivery-insight (Est savings of 123 KiB)",
       "legacy-javascript-insight (Est savings of 12 KiB)",
       "network-dependency-tree-insight",
-      "render-blocking-insight (Est savings of 170 ms)"
+      "render-blocking-insight (Est savings of 200 ms)"
     ]
   },
   {
-    "ruta": "/",
-    "performance": 98,
+    "ruta": "/servicios/sucesiones/",
+    "performance": 96,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100,
-    "LCP": "2.4 s",
+    "LCP": "2.7 s",
     "CLS": "0",
     "TBT": "10 ms",
     "pendientes": [
-      "mainthread-work-breakdown (5.5 s)",
-      "bootup-time (4.5 s)",
-      "unused-javascript (Est savings of 47 KiB)",
-      "image-delivery-insight (Est savings of 165 KiB)",
+      "largest-contentful-paint (2.7 s)",
+      "unused-javascript (Est savings of 61 KiB)",
+      "image-delivery-insight (Est savings of 101 KiB)",
+      "legacy-javascript-insight (Est savings of 12 KiB)",
+      "network-dependency-tree-insight",
+      "render-blocking-insight (Est savings of 200 ms)"
+    ]
+  },
+  {
+    "ruta": "/proceso/",
+    "performance": 99,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "LCP": "2.2 s",
+    "CLS": "0",
+    "TBT": "10 ms",
+    "pendientes": [
+      "unused-javascript (Est savings of 50 KiB)",
+      "image-delivery-insight (Est savings of 40 KiB)",
       "legacy-javascript-insight (Est savings of 12 KiB)",
       "network-dependency-tree-insight",
       "render-blocking-insight (Est savings of 180 ms)"
+    ]
+  },
+  {
+    "ruta": "/instalaciones/",
+    "performance": 97,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "LCP": "2.5 s",
+    "CLS": "0",
+    "TBT": "0 ms",
+    "pendientes": [
+      "largest-contentful-paint (2.5 s)",
+      "unused-javascript (Est savings of 61 KiB)",
+      "image-delivery-insight (Est savings of 78 KiB)",
+      "legacy-javascript-insight (Est savings of 12 KiB)",
+      "network-dependency-tree-insight",
+      "render-blocking-insight (Est savings of 200 ms)"
+    ]
+  },
+  {
+    "ruta": "/notaria/",
+    "performance": 99,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "LCP": "1.9 s",
+    "CLS": "0",
+    "TBT": "0 ms",
+    "pendientes": [
+      "unused-javascript (Est savings of 61 KiB)",
+      "legacy-javascript-insight (Est savings of 12 KiB)",
+      "network-dependency-tree-insight",
+      "render-blocking-insight (Est savings of 190 ms)"
+    ]
+  },
+  {
+    "ruta": "/contacto/",
+    "performance": 99,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "LCP": "2.0 s",
+    "CLS": "0",
+    "TBT": "0 ms",
+    "pendientes": [
+      "unused-javascript (Est savings of 60 KiB)",
+      "legacy-javascript-insight (Est savings of 12 KiB)",
+      "network-dependency-tree-insight",
+      "render-blocking-insight (Est savings of 230 ms)"
     ]
   }
 ]
