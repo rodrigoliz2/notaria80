@@ -435,3 +435,25 @@ details[open] .plus::after { transform: rotate(0deg); }
     .hero-atrio { display: block; position: absolute; z-index: 1; top: calc(var(--header-h) + 48px); left: calc(var(--gutter) + 33%); width: min(17%, 240px); }
   }
 }
+@layer components {
+  .svc-nav { display: block; padding-block: 28px 32px; transition: opacity 200ms ease; }
+  @media (hover: hover) and (pointer: fine) { .svc-nav:hover { opacity: 0.8; } }
+
+  /* Línea de tiempo: el filete de latón se traza con el scroll. */
+  .tl { position: relative; }
+  .tl-line { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--color-laton); transform-origin: top; }
+  @media (min-width: 768px) { .tl-line { left: 240px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .tl-line { animation: grow-y linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
+    }
+  }
+}
+@layer components {
+  .day { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--rule); cursor: pointer; font-size: 0.9375rem; transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease; }
+  .day input { position: absolute; opacity: 0; pointer-events: none; }
+  .day:has(input:checked) { background: var(--color-bosque); border-color: var(--color-bosque); color: var(--color-marfil); }
+  .day:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .day:hover:not(:has(input:checked)) { border-color: var(--color-bosque); } }
+  @media (prefers-reduced-motion: no-preference) { .paso { animation: fade-rise 420ms var(--ease-out); } }
+}

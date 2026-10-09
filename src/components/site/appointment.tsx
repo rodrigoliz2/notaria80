@@ -1,151 +1,173 @@
 "use client";
-import { useRef, useState } from "react";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { services, siteConfig, whatsappHref } from "@/site.config";
-import { WhatsAppIcon } from "./contact-link";
+
+import { useId, useRef, useState } from "react";
+import { IconArrowLeft, IconArrowRight, IconArrowUpRight, IconBrandWhatsapp } from "@tabler/icons-react";
+import { services, serviceName, siteConfig, whatsappHref } from "@/site.config";
+
+const options = [...services.map(serviceName), "Necesito orientación"];
+const days = ["lunes", "martes", "miércoles", "jueves", "viernes"];
+
+// Asistente de cita sin servidor: dos pasos que componen el mensaje y abren
+// WhatsApp. No guarda nada.
 export function Appointment() {
-  const [step, setStep] = useState(1);
+  const id = useId();
+  const [step, setStep] = useState<1 | 2>(1);
   const [service, setService] = useState("");
   const [name, setName] = useState("");
   const [day, setDay] = useState("");
   const [error, setError] = useState("");
-  const [ready, setReady] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
-  const selectRef = useRef<HTMLSelectElement>(null);
-  const message = `${siteConfig.messages.appointment} Mi nombre es ${name.trim()}. El trámite que necesito es ${service}.${day ? ` Mi día preferido es ${day}.` : ""}`;
+  const firstOption = useRef<HTMLInputElement>(null);
+
+  const trimmed = name.trim();
+  const message = `${siteConfig.messages.appointment} Mi nombre es ${trimmed}. El trámite que necesito es: ${service.toLocaleLowerCase("es-MX")}.${day ? ` Mi día preferido es el ${day}.` : ""}`;
+
   function next() {
     if (!service) {
-      setError("Seleccione un trámite para continuar.");
-      selectRef.current?.focus();
+      setError("Elija un trámite para continuar.");
+      firstOption.current?.focus();
       return;
     }
     setError("");
     setStep(2);
     requestAnimationFrame(() => nameRef.current?.focus());
   }
-  function validate() {
-    if (!name.trim()) {
-      setError("Escriba su nombre para preparar el mensaje.");
-      nameRef.current?.focus();
-      return;
-    }
-    setError("");
-    setReady(true);
-  }
+
   return (
-    <div className="appointment">
-      <div className="appointment-top">
-        <h3>Preparemos su cita.</h3>
-        <span>{step} de 2</span>
+    <div className="s-marfil border border-[var(--rule)] p-6 sm:p-10">
+      <div className="flex items-baseline justify-between gap-6">
+        <h2 className="t-h3">
+          {step === 1 ? "¿Qué trámite necesita?" : "¿A nombre de quién?"}
+        </h2>
+        <span className="font-serif text-[0.9375rem] text-[var(--muted)]" aria-live="polite">
+          <span className="sr-only">Paso </span>0{step} / 02
+        </span>
       </div>
-      <p className="appointment-intro">
-        Cuéntenos qué necesita. Continuamos por WhatsApp.
-      </p>
-      <div aria-live="polite" className="form-feedback">
+      <div className="mt-4 h-px bg-[var(--rule)]" aria-hidden="true">
+        <div className="h-px origin-left bg-laton transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" style={{ transform: `scaleX(${step / 2})` }} />
+      </div>
+
+      <div aria-live="assertive" className="min-h-0">
         {error && (
-          <p role="alert" className="form-error">
+          <p role="alert" className="mt-5 border-l-2 border-[#9b2c1f] pl-3 text-[0.9375rem] text-[#7a2216]">
             {error}
           </p>
         )}
       </div>
+
       {step === 1 ? (
-        <div className="form-step">
-          <label htmlFor="service">¿Qué trámite necesita?</label>
-          <select
-            id="service"
-            ref={selectRef}
-            value={service}
-            aria-invalid={!!error}
-            onChange={(e) => {
-              setService(e.target.value);
-              setError("");
-            }}
-          >
-            <option value="">Seleccione un trámite</option>
-            {services.map((s) => (
-              <option key={s.title}>{s.title}</option>
-            ))}
-            <option>Créditos hipotecarios</option>
-            <option>Necesito orientación</option>
-          </select>
-          <button type="button" className="button primary" onClick={next}>
-            Continuar
-            <IconArrowRight aria-hidden="true" size={18} />
+        <div key="paso-1" className="paso mt-6">
+          <fieldset className="m-0 border-0 p-0">
+            <legend className="sr-only">Trámite</legend>
+            <div className="border-b border-[var(--rule)]">
+              {options.map((o, i) => (
+                <label key={o} className="choice">
+                  <input
+                    ref={i === 0 ? firstOption : undefined}
+                    type="radio"
+                    name={`${id}-tramite`}
+                    value={o}
+                    checked={service === o}
+                    onChange={() => {
+                      setService(o);
+                      setError("");
+                    }}
+                  />
+                  <span className="font-serif text-[1.25rem] leading-tight">{o}</span>
+                  <IconArrowRight size={18} stroke={1.5} aria-hidden="true" className="shrink-0 opacity-60" />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <button type="button" className="btn btn-fwd btn-block mt-8" onClick={next}>
+            <span className="btn-label">Continuar</span>
+            <span className="btn-icon" aria-hidden="true">
+              <IconArrowRight size={18} stroke={1.5} />
+              <IconArrowRight size={18} stroke={1.5} />
+            </span>
           </button>
         </div>
       ) : (
-        <div className="form-step">
+        <div key="paso-2" className="paso mt-6">
           <button
             type="button"
-            className="text-link back"
+            className="link"
             onClick={() => {
               setStep(1);
               setError("");
-              setReady(false);
             }}
           >
-            <IconArrowLeft size={18} aria-hidden="true" />
-            Cambiar trámite
+            <IconArrowLeft size={18} stroke={1.5} aria-hidden="true" />
+            <span className="link-text">Cambiar trámite: {service}</span>
           </button>
-          <p className="selected-service">{service}</p>
-          <label htmlFor="name">Su nombre</label>
+          <label htmlFor={`${id}-nombre`} className="mt-6 block font-medium">
+            Su nombre
+          </label>
           <input
-            id="name"
+            id={`${id}-nombre`}
             ref={nameRef}
+            className="field"
             value={name}
             maxLength={100}
-            autoComplete="given-name"
+            autoComplete="name"
             aria-invalid={!!error}
+            aria-describedby={error ? undefined : `${id}-nota`}
             onChange={(e) => {
               setName(e.target.value);
-              setReady(false);
               setError("");
             }}
           />
-          <label htmlFor="day">
-            Día preferido <span>(opcional)</span>
-          </label>
-          <select
-            id="day"
-            value={day}
-            onChange={(e) => {
-              setDay(e.target.value);
-              setReady(false);
-            }}
-          >
-            <option value="">Sin preferencia</option>
-            {["lunes", "martes", "miércoles", "jueves", "viernes"].map((d) => (
-              <option value={d} key={d}>
-                {d.charAt(0).toUpperCase() + d.slice(1)}
-              </option>
-            ))}
-          </select>
-          {ready ? (
-            <>
-              <div className="message-preview" aria-live="polite">
-                <span>Su mensaje está listo</span>
-                <p>{message}</p>
-              </div>
-              <a
-                className="button primary"
-                href={whatsappHref(message)}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-contact="whatsapp"
-              >
-                <WhatsAppIcon />
+          <fieldset className="m-0 mt-8 border-0 p-0">
+            <legend className="font-medium">
+              Día preferido <span className="font-normal text-[var(--muted)]">(opcional)</span>
+            </legend>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {["", ...days].map((d) => (
+                <label key={d || "sin"} className="day">
+                  <input type="radio" name={`${id}-dia`} value={d} checked={day === d} onChange={() => setDay(d)} />
+                  <span>{d ? d.charAt(0).toUpperCase() + d.slice(1) : "Sin preferencia"}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <div className="mt-8 border-l border-laton bg-piedra/60 px-5 py-4" aria-live="polite">
+            <p className="t-small text-[var(--muted)]">Su mensaje</p>
+            <p className="mt-2 text-[0.9375rem] leading-relaxed">{trimmed ? message : "Escriba su nombre para preparar el mensaje."}</p>
+          </div>
+          {trimmed ? (
+            <a className="btn btn-block mt-8" href={whatsappHref(message)} target="_blank" rel="noopener noreferrer" data-contact="whatsapp" data-origin="asistente">
+              <span className="btn-label">
+                <IconBrandWhatsapp size={20} stroke={1.5} aria-hidden="true" />
                 Abrir WhatsApp
-              </a>
-            </>
+              </span>
+              <span className="btn-icon" aria-hidden="true">
+                <IconArrowUpRight size={18} stroke={1.5} />
+                <IconArrowUpRight size={18} stroke={1.5} />
+              </span>
+              <span className="sr-only"> (abre WhatsApp)</span>
+            </a>
           ) : (
-            <button type="button" className="button primary" onClick={validate}>
-              Preparar mensaje
-              <IconArrowRight size={18} aria-hidden="true" />
+            <button
+              type="button"
+              className="btn btn-block mt-8"
+              onClick={() => {
+                setError("Escriba su nombre para preparar el mensaje.");
+                nameRef.current?.focus();
+              }}
+            >
+              <span className="btn-label">
+                <IconBrandWhatsapp size={20} stroke={1.5} aria-hidden="true" />
+                Abrir WhatsApp
+              </span>
+              <span className="btn-icon" aria-hidden="true">
+                <IconArrowUpRight size={18} stroke={1.5} />
+                <IconArrowUpRight size={18} stroke={1.5} />
+              </span>
             </button>
           )}
         </div>
       )}
-      <p className="form-note">
+      <p id={`${id}-nota`} className="t-small mt-6 text-[var(--muted)]">
         La cita se confirma por WhatsApp. Estos datos no se guardan en el sitio.
       </p>
     </div>
