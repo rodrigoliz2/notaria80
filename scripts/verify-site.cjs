@@ -54,7 +54,8 @@ const routes = [
       await page.waitForTimeout(400);
       const data = await page.evaluate(({ WA }) => {
         const links = [...document.querySelectorAll("a[href]")].map((a) => ({ href: a.getAttribute("href"), target: a.getAttribute("target"), text: (a.textContent || "").trim() }));
-        const wa = links.filter((l) => /wa\.me|whatsapp/i.test(l.href));
+        // Solo destinos de mensajería; la política legal de WhatsApp es un enlace informativo.
+        const wa = links.filter((l) => /^(?:https:\/\/(?:wa\.me\/|(?:api|web)\.whatsapp\.com\/send\b)|whatsapp:\/\/)/i.test(l.href));
         const tel = links.filter((l) => l.href.startsWith("tel:"));
         const visible = (sel) => {
           const el = document.querySelector(sel);

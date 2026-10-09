@@ -10,5 +10,5 @@
 - Referencias estudiadas para el rediseño (sin copiar identidad ni material): garantejuridico.com y el repositorio garantelegal, kirkland.com, bakermckenzie.com, am-abogados.mx y floresencarnacion.com. Capturas de referencia en `docs/screenshots/referencias/`.
 - SVG del logotipo: trazado del canal alfa mediante Potrace durante preparación; geometría original preservada. En el rediseño solo se le añadió aire al viewBox (`logo-n80.svg`).
 - Exportación estática y loader de imágenes: [documentación de Next.js](https://nextjs.org/docs/app/guides/static-exports).
-- Marco consultado para identificar las materias que debe completar el aviso de privacidad: [texto vigente de la LFPDPPP, Cámara de Diputados](https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf). El documento publicado es solo un borrador operativo para revisión, no un aviso integral validado.
+- Aviso de privacidad integral: [LFPDPPP vigente, Cámara de Diputados](https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf), expedida el 20 de marzo de 2025 y con última reforma publicada el 14 de noviembre de 2025; Constitución federal; Ley del Notariado del Estado de Jalisco y LFPIORPI. Fuentes, artículos y alcance de cada cláusula en `docs/FUNDAMENTOS_PRIVACIDAD.md`. Consulta: 8 de octubre de 2026.
 - Figma: [sistema y composiciones](https://www.figma.com/design/MLJAANbQijGqeoR7aFa6nc).

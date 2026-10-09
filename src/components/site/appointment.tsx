@@ -168,7 +168,7 @@ export function Appointment() {
         </div>
       )}
       <p id={`${id}-nota`} className="t-small mt-6 text-[var(--muted)]">
-        La cita se confirma por WhatsApp. Estos datos no se guardan en el sitio.
+        La cita se confirma por WhatsApp. Su nombre, trámite y día preferido se usan para preparar el mensaje; al abrir WhatsApp, el texto se comparte con ese servicio. Los campos no se guardan en el sitio. Responsable: {siteConfig.titular}, Notaría 80, {siteConfig.address}, {siteConfig.neighborhood}, C.P. {siteConfig.postalCode}, {siteConfig.city}. Puede limitar el uso de sus datos en {siteConfig.email}. Consulte el <a href="/aviso-de-privacidad/" className="underline underline-offset-4">aviso de privacidad integral</a>.
       </p>
     </div>
   );

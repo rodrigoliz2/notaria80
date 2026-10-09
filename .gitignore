@@ -6,3 +6,4 @@ out/
 !.env.example
 .DS_Store
 .impeccable/config.local.json
+.playwright-mcp/

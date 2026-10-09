@@ -13,7 +13,7 @@ Sitio institucional orientado a WhatsApp y llamadas. Está hecho con Next.js 16 
 | `/instalaciones` | Galería editorial y accesibilidad |
 | `/notaria` | Titular, formación, cédulas, trayectoria, forma de trabajo e instituciones |
 | `/contacto` | Asistente de cita, teléfonos, dirección, horario y mapa diferido |
-| `/aviso-de-privacidad` | Borrador en revisión |
+| `/aviso-de-privacidad` | Aviso de privacidad integral: datos, finalidades, transferencias, conservación y derechos ARCO |
 | `/styleguide` | Sistema de diseño vivo (sin indexar) |
 
 ## Desarrollo
@@ -36,7 +36,7 @@ npm start       # http://localhost:3080 (otro puerto: PORT=3081 npm start)
 
 ## Despliegue
 
-Importar el repositorio en Vercel. `vercel.json` define:
+La guía paso a paso está en [GUIA_PRODUCCION.md](GUIA_PRODUCCION.md). Puede publicar desde esta carpeta mediante Vercel CLI, sin crear un repositorio remoto. `vercel.json` define:
 
 - el comando `npm run build`;
 - el directorio `out/`;
@@ -44,6 +44,10 @@ Importar el repositorio en Vercel. `vercel.json` define:
 - las redirecciones permanentes de las rutas del sitio anterior.
 
 Configure el dominio `notaria80gdl.mx`. No hay secretos ni variables obligatorias.
+
+## Contenido jurídico
+
+El aviso integral se encuentra en `src/app/aviso-de-privacidad/page.tsx`. La correspondencia entre cláusulas, artículos y fuentes oficiales está en [docs/FUNDAMENTOS_PRIVACIDAD.md](docs/FUNDAMENTOS_PRIVACIDAD.md), con fecha de consulta del 8 de octubre de 2026. La actualización jurídica comprende también las siete introducciones de servicios y la información de privacidad junto al asistente de citas.
 
 ## Contenido y contacto
 
@@ -85,7 +89,9 @@ Los resultados están en `docs/VERIFICACION.md` y `docs/verificacion.json`.
 ## Documentación
 
 - `DECISIONES.md`: dirección de arte, arquitectura, movimiento y su porqué.
-- `PENDIENTES.md`: datos por confirmar y preparación del lanzamiento.
+- `PENDIENTES.md`: contenido cerrado y tareas técnicas de lanzamiento.
+- `GUIA_PRODUCCION.md`: compilación, publicación, dominio y restauración.
+- `docs/FUNDAMENTOS_PRIVACIDAD.md`: fundamento y alcance de los textos jurídicos.
 - `CREDITOS.md`: fuentes, tipografías y materiales.
 - `docs/ANALISIS_REDISENO.md`: diagnóstico, estudio de Garante Jurídico y referencias, mapa de páginas.
 - `docs/CRITICA.md`: ronda de crítica y correcciones.

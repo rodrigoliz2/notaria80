@@ -61,7 +61,7 @@ export const services = [
     title: "Traslativos de dominio",
     description: "Escrituración de inmuebles con certeza y transparencia.",
     intro:
-      "Todo acto por el que la propiedad de un inmueble pasa de una persona a otra. La escritura le da certeza y se inscribe en el Registro Público.",
+      "Formalizamos actos que transmiten la propiedad de inmuebles. Revisamos sus antecedentes y los requisitos del caso, preparamos la escritura y gestionamos la inscripción que corresponda.",
     acts: [
       "Compraventa",
       "Donación",
@@ -76,7 +76,7 @@ export const services = [
     title: "Sucesiones",
     description: "Proteja a su familia y ordene su patrimonio.",
     intro:
-      "Testamento para decidir hoy el destino de su patrimonio, y tramitación de la sucesión cuando una persona fallece, con o sin testamento.",
+      "Le asesoramos para otorgar testamento y tramitar sucesiones con o sin él. La vía notarial requiere la solicitud de todos los interesados, ausencia de controversia y los demás requisitos legales.",
     acts: ["Testamentos", "Sucesión testamentaria", "Sucesión intestamentaria"],
     photo: "09-libros-protocolo-detalle" as PhotoFile,
   },
@@ -85,7 +85,7 @@ export const services = [
     title: "Corporativo",
     description: "Su empresa, formalizada desde el primer día.",
     intro:
-      "Constitución y vida jurídica de sociedades: cada decisión de socios y asambleas, formalizada ante notario.",
+      "Acompañamos la constitución y los cambios de sociedades civiles y mercantiles. Formalizamos acuerdos y actas cuando su naturaleza, la ley o los estatutos requieren intervención notarial.",
     acts: [
       "Constitución de sociedades mercantiles y civiles",
       "Actas de asamblea",
@@ -101,7 +101,7 @@ export const services = [
     title: "Poderes notariales",
     description: "Representación legal con plena validez.",
     intro:
-      "El documento con el que otra persona puede actuar en su nombre, con el alcance exacto que usted decida.",
+      "Formalizamos poderes para que otra persona actúe en su nombre. Definimos las facultades y sus límites según su voluntad y la ley; también atendemos revocaciones y los avisos correspondientes.",
     acts: ["Poderes generales", "Poderes especiales", "Revocaciones"],
     photo: "05-recepcion-mostrador" as PhotoFile,
   },
@@ -110,7 +110,7 @@ export const services = [
     title: "Certificaciones",
     description: "Documentos y firmas con valor legal.",
     intro:
-      "La notaría da fe de que una firma, una copia o un hecho son auténticos, para que tengan valor ante terceros.",
+      "Certificamos firmas, cotejamos copias con los documentos exhibidos y hacemos constar hechos percibidos por la notaria. Cada certificación tiene el alcance que la ley y el acto permiten.",
     acts: [
       "Certificación de firmas",
       "Certificación de copias",
@@ -123,7 +123,7 @@ export const services = [
     title: "Asesoría legal",
     description: "Orientación antes de firmar.",
     intro:
-      "Antes de cualquier acto, revisamos su caso y le explicamos el camino, los requisitos y el costo.",
+      "Revisamos su caso con imparcialidad y le explicamos las opciones, sus consecuencias legales, los documentos necesarios y el presupuesto para formalizar el acto.",
     acts: ["Consultoría notarial", "Derecho civil", "Mercantil", "Corporativo"],
     photo: "03-recepcion-sala-de-espera" as PhotoFile,
   },
@@ -133,7 +133,7 @@ export const services = [
     shortTitle: "Créditos hipotecarios",
     description: "Escrituración con crédito, también en alto volumen.",
     intro:
-      "Operamos con Infonavit, Fovissste, bancos y desarrolladores de vivienda, incluso en operaciones de alto volumen.",
+      "Formalizamos operaciones de vivienda con Infonavit, Fovissste, bancos y desarrolladores, también en alto volumen. La autorización del crédito corresponde a la institución otorgante.",
     acts: [
       "Escrituración con crédito Infonavit",
       "Escrituración con crédito Fovissste",

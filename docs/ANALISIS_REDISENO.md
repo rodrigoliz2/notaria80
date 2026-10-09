@@ -108,7 +108,7 @@ Lectura: sitio institucional de una notaría para particulares y empresas de Gua
 | `/instalaciones` | Galería editorial: recepción ancha y atrio alto desfasados; trío de verticales a distintas alturas; detalle de libros a gran escala con marco de latón; área jurídica y digitalización. Franja noche de accesibilidad. | Máscaras por imagen, paralaje, escala sutil en hover. |
 | `/notaria` | Hero noche tipográfico (no hay retrato): nombre de la titular, cargo, numerales 80 / 2013 / 30+. Perfil breve, línea de tiempo de la trayectoria, credenciales (cédula federal 2393029 y estatal 110366, publicación autorizada), diferenciadores, instituciones. | Línea de tiempo que se dibuja (`scaleY`) con el scroll y años que se revelan. |
 | `/contacto` | Asistente de cita en dos pasos con opciones grandes (no `select`), vista previa del mensaje y botón a WhatsApp. Al lado, dirección, horario, teléfonos `tel:` y mapa diferido con «Cómo llegar». | Cambio de paso con desplazamiento lateral de 16 px y opacidad; selección con relleno animado. |
-| `/aviso-de-privacidad` | Página de lectura a 68 caracteres, aviso de borrador. | Solo transición de página. |
+| `/aviso-de-privacidad` | Página de lectura a 68 caracteres; texto integral actualizado el 8 de octubre de 2026. | Solo transición de página. |
 | 404 | Noche, numeral, salida a WhatsApp y al inicio. | Solo transición de página. |
 | `/styleguide` | Tokens, escala, botones, enlaces, superficies y tabla de movimiento. `noindex`. | Muestras vivas. |
 

@@ -137,5 +137,5 @@ El sitio se recorre como la notaría: mármol (marfil), muro de lamas negras (ve
   - JSON-LD `LegalService` con dirección, horarios y coordenadas (20.6785506, -103.3801279);
   - mapa solo tras activación explícita;
   - analítica desactivada;
-  - borrador de privacidad visible como en revisión.
+  - aviso de privacidad sustituido por el texto integral del 8 de octubre de 2026, conforme al encargo de cierre jurídico.
 - **Figma de esa versión:** https://www.figma.com/design/MLJAANbQijGqeoR7aFa6nc
