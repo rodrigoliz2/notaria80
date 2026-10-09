@@ -1,467 +1,179 @@
-import {
-  IconArrowDownRight,
-  IconArrowUpRight,
-  IconPhone,
-  IconCheck,
-  IconPlus,
-} from "@tabler/icons-react";
-import {
-  siteConfig,
-  services,
-  processSteps,
-  fullProcess,
-  testimonials,
-  serviceMessage,
-} from "@/site.config";
-import { ContactLink } from "@/components/contact-link";
-import { Photo } from "@/components/photo";
-import { Gallery } from "@/components/gallery";
-import { Institutions } from "@/components/institutions";
-import { Appointment } from "@/components/appointment";
-import { LocationMap } from "@/components/map";
+import type { Metadata } from "next";
+import { siteConfig } from "@/site.config";
+import { Page } from "@/components/site/page";
+import { Lines } from "@/components/site/lines";
+import { Frame } from "@/components/site/frame";
+import { CallLink, TextLink, WhatsAppButton } from "@/components/site/actions";
+import { ServiceIndex } from "@/components/site/service-index";
+import { Institutions } from "@/components/site/institutions";
+import { Testimonials } from "@/components/site/testimonials";
+import { Logo } from "@/components/site/logo";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
+
+const trust = [
+  { big: "2013", text: "En funciones desde el 1 de marzo de 2013." },
+  { big: "30+", text: "Años de trayectoria jurídica de la titular." },
+  { big: "ES · EN", text: "Atención en español e inglés; intérprete para otros idiomas." },
+  { big: <em>Inclusiva</em>, text: "Espacios para personas con discapacidad, adultos mayores y movilidad reducida." },
+];
+
 export default function Home() {
   return (
-    <main id="contenido">
-      <section className="hero container" id="inicio">
-        <div className="hero-copy">
-          <h1 className="hero-title">
-            Su patrimonio,
-            <br />
-            <em>en firme.</em>
-          </h1>
-          <p className="hero-description">
-            Notaría Pública 80 de Guadalajara.
-            <br />
-            Atención personalizada y certeza legal en cada firma.
-          </p>
-          <div className="hero-actions">
-            <ContactLink />
-            <a href={siteConfig.phones[0].href} className="text-link">
-              <IconPhone size={19} aria-hidden="true" />
-              Llamar
-            </a>
+    <Page hero="dark">
+      {/* 1. Hero: el muro de lamas. Titular sobre el emblema de latón. */}
+      <section className="s-noche lamas seq relative overflow-hidden">
+        <div className="wrap grid min-h-[calc(100svh-var(--bar-h))] content-end gap-y-6 pb-10 pt-[var(--header-h)] lg:gap-y-8 lg:grid-cols-12 lg:gap-x-6 lg:pb-20 lg:pt-[calc(var(--header-h)+48px)]">
+          {/* Par desfasado: el atrio flota en el vacío superior; solo con pantalla alta. */}
+          <div className="hero-atrio">
+            <Frame file="01-atrio-doble-altura" reveal="load" delay={420} parallax={false} sizes="18vw" className="aspect-[3/4]" brass caption={{ n: "01", text: "Atrio de doble altura" }} />
           </div>
-          <div className="hero-trust">
-            <span className="trust-rule" />
-            <p>
-              En funciones desde 2013.
-              <br />
-              <span>A su lado en cada decisión.</span>
-            </p>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="hero-photo">
-            <Photo
+          <div className="relative -mx-[var(--gutter)] lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mx-0 lg:self-stretch">
+            <Frame
               file="02-letrero-logotipo-muro"
-              alt="Logotipo de la Notaría 80 en latón sobre el muro de lamas oscuras de nuestra recepción"
-              width={1069}
-              height={1062}
+              reveal="load"
+              delay={120}
               priority
-              sizes="(max-width: 767px) 90vw, 44vw"
+              parallax={false}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="hero-emblem aspect-[16/11] w-full sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[560px]"
+              position="50% 46%"
+              alt="Logotipo de la Notaría 80 en latón sobre el muro de lamas negras de la recepción"
             />
           </div>
-          <div className="hero-inset">
-            <Photo
-              file="01-atrio-doble-altura"
-              alt="Atrio de doble altura con candelabro de latón en la Notaría 80"
-              width={1473}
-              height={2248}
-              sizes="(max-width:767px) 30vw, 170px"
-            />
-          </div>
-          <p className="hero-caption">
-            Un espacio para decisiones importantes.
-          </p>
-        </div>
-      </section>
-      <section
-        className="confidence container"
-        aria-label="Nuestra experiencia y atención"
-      >
-        <div>
-          <span className="confidence-main">Desde 2013</span>
-          <span>En funciones en Guadalajara</span>
-        </div>
-        <div>
-          <span className="confidence-main">Español e inglés</span>
-          <span>Atención en su idioma</span>
-        </div>
-        <div>
-          <span className="confidence-main">Atención inclusiva</span>
-          <span>Espacios accesibles</span>
-        </div>
-        <div>
-          <span className="confidence-main">Firmas privadas</span>
-          <span>Salas para su tranquilidad</span>
-        </div>
-      </section>
-      <section className="section container services-section" id="servicios">
-        <div className="section-heading" data-reveal>
-          <h2>
-            Cada firma,
-            <br />
-            una decisión importante.
-          </h2>
-          <p>
-            Su familia, su patrimonio o su empresa.
-            <br />
-            Le orientamos para dar el siguiente paso.
-          </p>
-        </div>
-        <div className="service-grid">
-          {services.map((s) => (
-            <article className="service-card" key={s.title}>
-              <div className="service-heading">
-                <h3>{s.title}</h3>
-                <IconArrowDownRight size={25} stroke={1.2} aria-hidden="true" />
-              </div>
-              <p>{s.description}</p>
-              <ul className="service-acts">
-                {s.acts.map((a) => (
-                  <li key={a}>{a}</li>
-                ))}
-              </ul>
-              <ContactLink
-                message={serviceMessage(s.title)}
-                className="text-link"
-              >
-                Consultar por WhatsApp
-              </ContactLink>
-            </article>
-          ))}
-        </div>
-        <div className="mortgage-band">
-          <div>
-            <h3>Créditos hipotecarios e instituciones.</h3>
-            <p>
-              Operaciones con Infonavit, Fovissste, bancos y desarrolladores,
-              también de alto volumen.
+          <div className="relative z-10 lg:col-start-1 lg:col-end-10 lg:row-start-1 lg:self-end">
+            <p className="seq-fade t-label text-laton" style={{ "--d": "60ms" } as React.CSSProperties}>
+              Notaría Pública 80 · Guadalajara
             </p>
+            <Lines as="h1" reveal="load" className="t-display mt-5 lg:mt-7" lines={["Su patrimonio,", { text: "en firme.", em: true }]} />
           </div>
-          <ContactLink
-            message={serviceMessage("créditos hipotecarios")}
-            className="text-link"
-          >
-            Consultar un crédito
-          </ContactLink>
+          <div className="relative z-10 grid gap-7 lg:col-start-1 lg:col-end-7 lg:row-start-2 lg:mt-2">
+            <p className="seq-fade t-lead max-w-[40ch] text-[var(--muted)]" style={{ "--d": "620ms" } as React.CSSProperties}>
+              Escrituras, testamentos, sociedades y poderes. Atención personalizada y certeza legal en cada firma.
+            </p>
+            <div className="seq-fade flex flex-wrap items-center gap-x-8 gap-y-3" style={{ "--d": "760ms" } as React.CSSProperties}>
+              <WhatsAppButton size="lg" origin="hero">Escribir por WhatsApp</WhatsAppButton>
+              <CallLink label="Llamar" className="hidden md:inline-flex" />
+            </div>
+          </div>
         </div>
       </section>
-      <section className="process-section section" id="proceso">
-        <div className="container">
-          <div className="section-heading" data-reveal>
-            <h2>
-              De la primera consulta
-              <br />a su escritura.
-            </h2>
-            <p>
-              Un proceso definido.
-              <br />
-              Acompañamiento en cada etapa.
-            </p>
-          </div>
-          <ol className="process-grid">
-            {processSteps.map((s, i) => (
-              <li key={s.title}>
-                <span className="step-number" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
+
+      {/* 2. Franja de confianza */}
+      <section className="s-marfil" aria-label="La Notaría 80 en cifras">
+        <div className="wrap">
+          <ul className="grid border-b border-[var(--rule)] sm:grid-cols-2 lg:grid-cols-4">
+            {trust.map((t, i) => (
+              <li key={i} className="trust-item" data-rv style={{ "--d": `${i * 80}ms` } as React.CSSProperties}>
+                <span className="t-h2 block whitespace-nowrap">{t.big}</span>
+                <span className="mt-3 block max-w-[28ch] text-[0.9375rem] text-[var(--muted)]">{t.text}</span>
               </li>
             ))}
-          </ol>
-          <div className="process-bottom">
-            <details>
-              <summary>
-                Ver el proceso completo
-                <IconPlus size={19} aria-hidden="true" />
-              </summary>
-              <ol>
-                {fullProcess.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ol>
-            </details>
-            <ContactLink className="text-link light">
-              Iniciar mi trámite
-            </ContactLink>
-          </div>
+          </ul>
         </div>
       </section>
-      <section className="section container gallery-section" id="instalaciones">
-        <div className="section-heading" data-reveal>
-          <h2>
-            La tranquilidad
-            <br />
-            también tiene un lugar.
-          </h2>
-          <p>
-            Espacios reales, atención cercana.
-            <br />
-            Conozca nuestras instalaciones.
-          </p>
-        </div>
-        <Gallery />
-        <div className="gallery-footer">
-          <p>
-            Espacios adaptados para personas con discapacidad,
-            <br className="desktop-break" /> adultos mayores y movilidad
-            reducida.
-          </p>
-          <ContactLink className="text-link">Visítenos con cita</ContactLink>
-        </div>
-      </section>
-      <section className="section difference-section" id="nosotros">
-        <div className="container difference-grid">
-          <div className="difference-title" data-reveal>
-            <h2>
-              Certeza legal.
-              <br />
-              Atención humana.
-            </h2>
-            <p>
-              El cuidado está en los detalles.
-              <br />Y en cómo acompañamos su trámite.
-            </p>
-            <ContactLink className="text-link">Conversemos</ContactLink>
-          </div>
-          <div className="difference-list">
-            {[
-              {
-                title: "Capacidad y control",
-                text: "Operaciones hipotecarias de volumen, procesos definidos y control interno para prevenir errores.",
-              },
-              {
-                title: "Cerca de usted",
-                text: "Seguimiento presencial o virtual. Atención en español e inglés e intérprete para otros idiomas.",
-              },
-              {
-                title: "Un espacio inclusivo",
-                text: "Atención digna para personas con discapacidad, adultos mayores y movilidad reducida.",
-              },
-              {
-                title: "Experiencia e infraestructura",
-                text: "Trayectoria institucional y gubernamental, tecnología notarial y respaldo de información fuera de sitio.",
-              },
-            ].map((d) => (
-              <div key={d.title}>
-                <IconCheck size={19} aria-hidden="true" />
-                <div>
-                  <h3>{d.title}</h3>
-                  <p>{d.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section institutions-section" id="instituciones">
-        <div className="container">
-          <h2 data-reveal>Instituciones que confían en nosotros.</h2>
-        </div>
-        <Institutions />
-        <div className="container institution-contact">
-          <ContactLink
-            className="text-link"
-            message={serviceMessage("operaciones institucionales")}
-          >
-            Consultar una operación institucional
-          </ContactLink>
-        </div>
-      </section>
-      <section className="section container titular-section" id="titular">
-        <div className="titular-photo image-reveal" data-reveal>
-          <Photo
-            file="09-libros-protocolo-detalle"
-            alt="Libros del protocolo notarial, resguardados en la biblioteca de la Notaría 80"
-            width={831}
-            height={1108}
-            sizes="(max-width:767px) 90vw, 35vw"
-          />
-        </div>
-        <div className="titular-content" data-reveal>
-          <h2>
-            Mtra. María Enriqueta
-            <br />
-            Ortiz Guerrero.
-          </h2>
-          <p className="titular-role">
-            Notaria Pública Titular número 80 de Guadalajara.
-          </p>
-          <div className="titular-facts">
-            <div>
-              <strong>30+</strong>
-              <span>Años de trayectoria jurídica</span>
-            </div>
-            <div>
-              <strong>2013</strong>
-              <span>Inicio de funciones notariales</span>
-            </div>
-          </div>
-          <p>
-            Licenciada y Maestra en Derecho por la Universidad de Guadalajara.
-          </p>
-          <p>
-            Especialidades en Derecho Contractual y en Derecho Corporativo y
-            Económico por la Universidad Panamericana.
-          </p>
-          <details className="trajectory">
-            <summary>
-              Ver trayectoria completa
-              <IconPlus size={20} aria-hidden="true" />
-            </summary>
-            <div>
-              <h3>Formación y reconocimientos</h3>
-              <ul>
-                <li>
-                  Licenciatura en Derecho y Maestría en Derecho (Constitucional
-                  y Amparo), Universidad de Guadalajara.
-                </li>
-                <li>
-                  Especialidades en Derecho Contractual y en Derecho Corporativo
-                  y Económico, Universidad Panamericana.
-                </li>
-                <li>
-                  Diplomado en Derecho Notarial, Colegio de Notarios del Estado
-                  de Jalisco.
-                </li>
-                <li>
-                  Reconocimiento Mariano Otero a la excelencia académica, UdeG,
-                  1991 y 1993.
-                </li>
-              </ul>
-              <h3>Experiencia institucional</h3>
-              <ul>
-                <li>
-                  Dirección de Catastro del Estado, 1988: auxiliar
-                  administrativo en trámite y registro.
-                </li>
-                <li>
-                  Despacho Jurídico Consultor, 1989-1990, y Consorcio
-                  Jurisconsultivo, 1990-1992: experiencia en juicios civiles y
-                  mercantiles; en el segundo, también penales.
-                </li>
-                <li>
-                  Ayuntamiento de Guadalajara, 1993-1998: supervisión de jueces
-                  calificadores (1993-1995) y coordinación de sesiones de
-                  Cabildo (1995-1998).
-                </li>
-                <li>
-                  Asesora Jurídica Federal, Instituto Federal de Defensoría
-                  Pública, 1999-2007.
-                </li>
-                <li>
-                  Directora General Jurídica, Secretaría de Administración del
-                  Gobierno de Jalisco, 2007-2013. Representación y asesoría,
-                  contratos administrativos y civiles, procedimientos de
-                  responsabilidad y transparencia.
-                </li>
-                <li>
-                  Presidenta Suplente de la Comisión de Adquisiciones y
-                  Enajenaciones del Gobierno del Estado.
-                </li>
-                <li>
-                  Nombramiento como titular: 12 de septiembre de 2012. En
-                  funciones desde el 1 de marzo de 2013.
-                </li>
-              </ul>
-              <p>
-                Cédula Federal {siteConfig.licenses.federal}.<br />
-                Cédula Estatal {siteConfig.licenses.estatal}.
+
+      {/* 3. Servicios */}
+      <section className="s-marfil section" aria-labelledby="servicios-titulo">
+        <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-x-6">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-[calc(var(--header-h)+40px)]">
+              <span className="marker" aria-hidden="true">01</span>
+              <Lines id="servicios-titulo" className="t-h2 mt-6" lines={["Lo que", { text: "hacemos.", em: true }]} />
+              <p className="mt-6 max-w-[34ch] text-[var(--muted)]" data-rv>
+                Para su familia, su patrimonio o su empresa.
               </p>
+              <div className="mt-8 grid justify-items-start gap-2" data-rv style={{ "--d": "120ms" } as React.CSSProperties}>
+                <WhatsAppButton variant="line" origin="inicio-servicios">Consultar un trámite</WhatsAppButton>
+                <TextLink href="/proceso" forward>Cómo es el proceso</TextLink>
+              </div>
             </div>
-          </details>
-          <ContactLink className="text-link">Solicitar orientación</ContactLink>
+          </div>
+          <div className="lg:col-span-8">
+            <ServiceIndex size="compact" />
+          </div>
         </div>
       </section>
-      <section className="section testimonial-section" id="testimonios">
-        <div className="container">
-          <div className="section-heading" data-reveal>
-            <h2>
-              La confianza,
-              <br />
-              en sus propias palabras.
+
+      {/* 4. Instalaciones: par desfasado sobre el muro */}
+      <section className="s-noche lamas section relative overflow-hidden" aria-labelledby="recinto-titulo">
+        <div className="wrap">
+          <div className="grid gap-6 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <span className="marker" aria-hidden="true">02</span>
+              <Lines id="recinto-titulo" className="t-h1 mt-6" lines={["Un recinto para", { text: "firmar en calma.", em: true }]} />
+            </div>
+          </div>
+          <div className="mt-14 grid gap-12 md:grid-cols-12 md:gap-x-6 lg:mt-20">
+            <div className="md:col-span-5">
+              <Frame file="01-atrio-doble-altura" sizes="(min-width: 768px) 38vw, 100vw" className="aspect-[4/5]" caption={{ n: "01", text: "Atrio de doble altura" }} />
+            </div>
+            <div className="md:col-span-6 md:col-start-7 md:pt-[22%]">
+              <Frame file="03-recepcion-sala-de-espera" sizes="(min-width: 768px) 45vw, 100vw" className="aspect-[4/3]" delay={120} brass caption={{ n: "02", text: "Recepción y sala de espera" }} />
+              <p className="mt-10 max-w-[36ch] text-[var(--muted)]" data-rv>
+                Salas de firmas privadas y espacios accesibles, en la colonia Ladrón de Guevara.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3" data-rv style={{ "--d": "100ms" } as React.CSSProperties}>
+                <TextLink href="/instalaciones" forward>Recorrer las instalaciones</TextLink>
+                <TextLink href={siteConfig.mapsUrl}>Cómo llegar</TextLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Instituciones */}
+      <section className="s-marfil section" aria-labelledby="instituciones-titulo">
+        <div className="wrap grid gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <span className="marker" aria-hidden="true">03</span>
+            <Lines id="instituciones-titulo" className="t-h2 mt-6" lines={["Instituciones que", { text: "confían en nosotros.", em: true }]} />
+          </div>
+          <div className="lg:col-span-4 lg:col-start-9" data-rv>
+            <p className="text-[var(--muted)]">Infonavit, Fovissste, banca y desarrolladores, incluso en operaciones de alto volumen.</p>
+            <TextLink href="/servicios/creditos-hipotecarios" className="mt-4" forward>
+              Créditos hipotecarios
+            </TextLink>
+          </div>
+        </div>
+        <div className="mt-14 lg:mt-20">
+          <Institutions />
+        </div>
+      </section>
+
+      {/* 6. Testimonio */}
+      <section className="s-piedra section" aria-labelledby="testimonios-titulo">
+        <div className="wrap grid gap-10 lg:grid-cols-12 lg:gap-x-6">
+          <div className="lg:col-span-3">
+            <span className="marker" aria-hidden="true">04</span>
+            <h2 id="testimonios-titulo" className="t-h3 mt-6 max-w-[12ch]">
+              En palabras de nuestros clientes
             </h2>
-            <p>
-              Experiencias de quienes
-              <br />
-              han realizado sus trámites con nosotros.
+          </div>
+          <div className="lg:col-span-8 lg:col-start-5">
+            <Testimonials />
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Cierre */}
+      <section className="s-bosque relative overflow-hidden" aria-labelledby="cierre-titulo">
+        <Logo label={null} className="watermark -right-[18vw] top-1/2 w-[120vw] -translate-y-1/2 md:-right-[8vw] md:w-[72vw]" />
+        <div className="wrap section relative">
+          <Lines id="cierre-titulo" className="t-display max-w-[11ch]" lines={["El primer paso", { text: "es conversar.", em: true }]} />
+          <div className="mt-12 grid gap-8 md:grid-cols-12 md:items-end">
+            <p className="t-lead max-w-[34ch] text-[var(--muted)] md:col-span-5" data-rv>
+              Cuéntenos qué trámite necesita y le orientamos por WhatsApp.
             </p>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 md:col-span-7 md:justify-end" data-rv style={{ "--d": "120ms" } as React.CSSProperties}>
+              <WhatsAppButton size="lg" message={siteConfig.messages.appointment} origin="inicio-cierre">
+                Agendar cita
+              </WhatsAppButton>
+              <CallLink />
+            </div>
           </div>
-          <div className="testimonial-grid">
-            {testimonials.map((t) => (
-              <figure key={t.name}>
-                <span className="quote-mark" aria-hidden="true">
-                  “
-                </span>
-                <blockquote>{t.quote}</blockquote>
-                <figcaption>
-                  {t.name}
-                  <span>Cliente de Notaría 80</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <ContactLink className="text-link">
-            Permítanos acompañarle
-          </ContactLink>
         </div>
       </section>
-      <section className="section container contact-section" id="contacto">
-        <div className="section-heading" data-reveal>
-          <h2>
-            El primer paso
-            <br />
-            es conversar.
-          </h2>
-          <p>
-            Cuéntenos qué necesita.
-            <br />
-            Le ayudamos a encontrar el camino.
-          </p>
-        </div>
-        <div className="contact-grid">
-          <div className="contact-information">
-            <h3>Nos vemos en Guadalajara.</h3>
-            <address>
-              {siteConfig.address}
-              <br />
-              {siteConfig.neighborhood}, C.P. {siteConfig.postalCode}
-              <br />
-              {siteConfig.city}
-            </address>
-            <dl>
-              <div>
-                <dt>Horario de atención</dt>
-                <dd>{siteConfig.hours}</dd>
-              </div>
-              <div>
-                <dt>Llámenos</dt>
-                <dd className="phone-list">
-                  {siteConfig.phones.map((p) => (
-                    <a href={p.href} key={p.href}>
-                      {p.display}
-                      <IconArrowUpRight size={16} aria-hidden="true" />
-                    </a>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt>Correo electrónico</dt>
-                <dd>
-                  <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-                </dd>
-              </div>
-            </dl>
-            <ContactLink className="text-link">
-              WhatsApp: {siteConfig.whatsappDisplay}
-            </ContactLink>
-            <LocationMap />
-          </div>
-          <Appointment />
-        </div>
-      </section>
-    </main>
+    </Page>
   );
 }
