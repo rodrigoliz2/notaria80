@@ -28,12 +28,19 @@ export function Header() {
   const ddTimer = useRef<number | undefined>(undefined);
   const { scrollY } = useScroll();
 
-  // La 404 no tiene ruta fija: cada página declara su primer bloque con data-hero.
-  useEffect(() => {
-    setDarkHero(document.getElementById("contenido")?.dataset.hero === "dark");
+  // Al cambiar de ruta se cierran menús y el encabezado vuelve a mostrarse.
+  const [seenPath, setSeenPath] = useState(pathname);
+  if (seenPath !== pathname) {
+    setSeenPath(pathname);
+    setDarkHero(DARK_HERO.includes(pathname));
     setMenu(false);
     setDropdown(false);
     setHidden(false);
+  }
+  // La 404 no tiene ruta fija: cada página declara su primer bloque con data-hero.
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setDarkHero(document.getElementById("contenido")?.dataset.hero === "dark"));
+    return () => cancelAnimationFrame(id);
   }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (y) => {

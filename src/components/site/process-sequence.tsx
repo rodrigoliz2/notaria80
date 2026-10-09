@@ -47,7 +47,8 @@ export function ProcessSequence() {
             </div>
             <ol className="grid gap-1" aria-hidden="true">
               {processSteps.map((s, i) => (
-                <li key={s.title} className="flex items-center gap-4 text-[0.9375rem] transition-colors duration-300" style={{ color: i === active ? "var(--color-bosque)" : "var(--color-salvia)", opacity: i === active ? 1 : 0.55 }}>
+                <li key={s.title} className="flex items-center gap-4 text-[0.9375rem] transition-colors duration-300" style={{ color: i === active ? "var(--color-bosque)" : "var(--color-salvia)" }}>
+                  <span className="h-px bg-laton transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" style={{ width: 24, transform: `scaleX(${i === active ? 1 : 0})`, transformOrigin: "left" }} />
                   <span className="font-serif">{num(i)}</span>
                   {s.title}
                 </li>
@@ -59,11 +60,11 @@ export function ProcessSequence() {
       <ol ref={list} className="lg:col-span-6 lg:col-start-7">
         {processSteps.map((s, i) => (
           <li key={s.title} data-step={i} className="grid content-center gap-6 border-t border-[var(--rule)] py-14 lg:min-h-[78svh] lg:border-0 lg:py-20">
-            <span className="font-serif text-[3.5rem] leading-none text-laton lg:hidden" aria-hidden="true">{num(i)}</span>
-            <h3 className="t-h2" data-rv>
+            <span className="font-serif text-[3.5rem] leading-none text-salvia lg:hidden" aria-hidden="true">{num(i)}</span>
+            <h2 className="t-h2" data-rv>
               <span className="sr-only">Paso {i + 1}: </span>
               {s.title}
-            </h3>
+            </h2>
             <p className="t-lead max-w-[34ch] text-[var(--muted)]" data-rv style={{ "--d": "80ms" } as React.CSSProperties}>
               {s.text}
             </p>

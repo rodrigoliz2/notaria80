@@ -49,7 +49,7 @@ export default async function Servicio({ params }: { params: Promise<{ slug: str
               <span aria-hidden="true" className="mx-2">/</span>
               <span aria-current="page">{name}</span>
             </nav>
-            <p className="seq-fade t-num mt-10 text-laton md:mt-14" style={{ "--d": "60ms" } as React.CSSProperties} aria-hidden="true">
+            <p className="seq-fade t-num mt-10 !text-salvia md:mt-14" style={{ "--d": "60ms" } as React.CSSProperties} aria-hidden="true">
               {num(index)}
             </p>
             <Lines as="h1" reveal="load" className="t-h1 mt-6 max-w-[12ch]" lines={rest.length ? [first, { text: rest.join(" "), em: true }] : [{ text: first, em: true }]} />

@@ -1,284 +1,169 @@
+// Verificación del sitio exportado: enlaces de contacto, presencia de WhatsApp y
+// «Agendar cita», desbordes, texto recortado, accesibilidad (axe), teclado y
+// movimiento reducido, en 390, 768 y 1440 px. Uso:
+//   npm run build && npm start   (en otra terminal)
+//   npm run test:e2e
 const { chromium } = require("playwright");
 const AxeBuilder = require("@axe-core/playwright").default;
 const fs = require("node:fs");
 const path = require("node:path");
-const assert = require("node:assert/strict");
+
 const target = process.env.TARGET_URL || "http://localhost:3080";
-const output = path.resolve("docs/screenshots");
-fs.mkdirSync(output, { recursive: true });
+const WA = "https://wa.me/523311704104";
+const TELS = ["tel:+523319833354", "tel:+523319833355", "tel:+523336306433"];
+const routes = [
+  "/",
+  "/servicios/",
+  "/servicios/traslativos-de-dominio/",
+  "/servicios/sucesiones/",
+  "/servicios/corporativo/",
+  "/servicios/poderes-notariales/",
+  "/servicios/certificaciones/",
+  "/servicios/asesoria-legal/",
+  "/servicios/creditos-hipotecarios/",
+  "/proceso/",
+  "/instalaciones/",
+  "/notaria/",
+  "/contacto/",
+  "/aviso-de-privacidad/",
+  "/pagina-inexistente/",
+];
+
 (async () => {
-  const browser = await chromium.launch({ headless: false });
-  const report = { target, viewports: [], checks: [], axe: [], errors: [] };
-  try {
-    const sections = [
-      "inicio",
-      "servicios",
-      "proceso",
-      "instalaciones",
-      "nosotros",
-      "instituciones",
-      "titular",
-      "testimonios",
-      "contacto",
-      "pie",
-    ];
-    for (const width of [390, 768, 1440]) {
-      const context = await browser.newContext({
-        viewport: { width, height: width === 390 ? 844 : 1000 },
-        reducedMotion: "reduce",
-      });
-      const page = await context.newPage();
-      page.on("pageerror", (e) => report.errors.push(e.message));
-      page.on("console", (m) => {
-        if (
-          m.type() === "error" &&
-          !(
-            page.url().includes("pagina-inexistente") &&
-            m.text().includes("404")
-          )
-        )
-          report.errors.push(m.text());
-      });
-      await page.goto(target, { waitUntil: "load" });
-      await page.evaluate(() => document.fonts.ready);
-      await page.screenshot({
-        path: path.join(output, `${width}-vista-inicial.png`),
-      });
-      assert.equal(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth > innerWidth,
-        ),
-        false,
-        `Overflow ${width}`,
-      );
-      for (const id of sections) {
-        const locator = page.locator("#" + id);
-        await locator.scrollIntoViewIfNeeded();
-        const box = await locator.boundingBox();
-        const scrollY = await page.evaluate(() => window.scrollY);
-        await page.screenshot({
-          path: path.join(output, `${width}-${id}.png`),
-          fullPage: true,
-          style: '.site-header,.whatsapp-float,.mobile-contact-bar,.skip-link{visibility:hidden!important}',
-          clip: {
-            x: 0,
-            y: Math.max(0, Math.round(box.y + scrollY)),
-            width,
-            height: Math.round(box.height),
-          },
-        });
-      }
-      await page.screenshot({
-        path: path.join(output, `${width}-pagina-completa.png`),
-        fullPage: true,
-        style: '.site-header,.whatsapp-float,.mobile-contact-bar,.skip-link{visibility:hidden!important}',
-      });
-      const violations = (
-        await new AxeBuilder({ page })
-          .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
-          .analyze()
-      ).violations;
-      report.axe.push({
-        width,
-        violations: violations.map((v) => ({
-          id: v.id,
-          impact: v.impact,
-          nodes: v.nodes.map((n) => ({
-            target: n.target,
-            summary: n.failureSummary,
-          })),
-        })),
-      });
-      for (const route of [
-        "/",
-        "/aviso-de-privacidad/",
-        "/pagina-inexistente/",
-      ]) {
-        const response = await page.goto(target + route, { waitUntil: "load" });
-        assert.equal(
-          response.status(),
-          route.includes("inexistente") ? 404 : 200,
-        );
-        for (const selector of [".header-appointment", ".whatsapp-float"]) {
-          const a = page.locator(selector);
-          assert(await a.isVisible());
-          const href = await a.getAttribute("href");
-          assert(href.startsWith("https://wa.me/523311704104?text="));
-          const decoded = new URL(href).searchParams.get("text");
-          assert.equal(
-            decoded,
-            selector === ".header-appointment"
-              ? "Hola, me gustaría agendar una cita en la Notaría 80."
-              : "Hola, quisiera información sobre un trámite en la Notaría 80.",
-          );
-          await context.route("https://wa.me/**", (route) =>
-            route.fulfill({
-              status: 200,
-              contentType: "text/html",
-              body: "<title>Destino WhatsApp verificado</title>",
-            }),
-          );
-          const popup = page.waitForEvent("popup");
-          await a.click();
-          const dest = await popup;
-          await dest.waitForLoadState();
-          assert.equal(dest.url(), href);
-          await dest.close();
-        }
-        if (width === 390) {
-          assert(await page.locator(".mobile-contact-bar").isVisible());
-          assert.equal(
-            await page
-              .locator(".mobile-contact-bar a")
-              .nth(1)
-              .getAttribute("href"),
-            "tel:+523319833354",
-          );
-        }
-        if (route !== "/")
-          await page.screenshot({
-            path: path.join(
-              output,
-              `${width}-${route.includes("inexistente") ? "404" : "privacidad"}.png`,
-            ),
-            fullPage: true,
-          });
-      }
-      await page.goto(target);
-      for (const a of await page.locator('a[href^="https://wa.me/"]').all()) {
-        assert(
-          (await a.getAttribute("href")).startsWith(
-            "https://wa.me/523311704104?text=",
-          ),
-        );
-      }
-      assert.equal(await page.locator(".service-card a").count(), 6);
-      const links = await page
-        .locator(".service-card a")
-        .evaluateAll((els) => els.map((e) => e.href));
-      links.forEach((u) =>
-        assert.match(
-          new URL(u).searchParams.get("text"),
-          /^Hola, quisiera información sobre .+ en la Notaría 80\.$/,
-        ),
-      );
-      if (width !== 1440) {
-        await page.getByRole("button", { name: "Abrir menú" }).click();
-        assert(await page.locator("#mobile-menu").isVisible());
-        await page.keyboard.press("Escape");
-        assert.equal(await page.locator("#mobile-menu").isVisible(), false);
-      }
-      await page.locator("#contacto").scrollIntoViewIfNeeded();
-      await page
-        .getByRole("button", { name: "Continuar", exact: true })
-        .click();
-      assert(await page.locator(".form-error").isVisible());
-      await page
-        .getByLabel("¿Qué trámite necesita?")
-        .selectOption("Sucesiones");
-      await page
-        .getByRole("button", { name: "Continuar", exact: true })
-        .click();
-      await page.getByRole("button", { name: "Preparar mensaje" }).click();
-      assert(await page.locator(".form-error").isVisible());
-      await page.getByLabel("Su nombre").fill("María & José");
-      await page.getByLabel(/Día preferido/).selectOption("miércoles");
-      await page.getByRole("button", { name: "Preparar mensaje" }).click();
-      const booking = page.getByRole("link", {
-        name: "Abrir WhatsApp",
-        exact: true,
-      });
-      await booking.scrollIntoViewIfNeeded();
-      assert(
-        await booking.evaluate((el) => {
-          const r = el.getBoundingClientRect();
-          return el.contains(
-            document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2),
-          );
-        }),
-        "Cita cubierta por contacto fijo",
-      );
-      const message = new URL(
-        await booking.getAttribute("href"),
-      ).searchParams.get("text");
-      assert(message.includes("María & José"));
-      assert(message.includes("Sucesiones"));
-      assert(message.includes("miércoles"));
-      await page
-        .locator(".appointment")
-        .screenshot({
-          path: path.join(output, `${width}-asistente-listo.png`),
-        });
-      await page.getByRole("button", { name: "Cambiar trámite" }).click();
-      assert.equal(
-        await page.getByLabel("¿Qué trámite necesita?").inputValue(),
-        "Sucesiones",
-      );
-      await page.getByRole("button", { name: "Conocer más espacios" }).click();
-      assert.equal(await page.locator(".more-photos figure").count(), 8);
-      await page.getByRole("button", { name: "Ver menos fotografías" }).click();
-      assert.equal(
-        await page
-          .getByRole("button", { name: "Pausar movimiento" })
-          .isVisible(),
-        false,
-      );
-      const animated = await page
-        .locator(".marquee-track")
-        .evaluate((el) => getComputedStyle(el).animationName);
-      assert.equal(animated, "none");
-      assert.equal(await page.locator("iframe").count(), 0);
-      await page.getByRole("button", { name: "Mostrar mapa" }).click();
-      assert.equal(await page.locator("iframe").count(), 1);
-      const body = await page.locator("body").innerText();
-      assert(body.includes("Mtra. María Enriqueta"));
-      assert(!body.includes("seis salas"));
-      await page.getByText("Ver trayectoria completa", { exact: true }).click();
-      assert(
-        (await page.locator(".trajectory").innerText()).includes("2393029"),
-      );
-      report.viewports.push(width);
-      report.checks.push(
-        `${width}: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados`,
-      );
-      await context.close();
-    }
-    const context = await browser.newContext({
-      viewport: { width: 1440, height: 900 },
-      reducedMotion: "no-preference",
-    });
+  const browser = await chromium.launch();
+  const report = { target, fecha: new Date().toISOString(), paginas: [], fallas: [] };
+  const fail = (msg) => report.fallas.push(msg);
+
+  for (const width of [390, 768, 1440]) {
+    const context = await browser.newContext({ viewport: { width, height: width === 390 ? 844 : width === 768 ? 1024 : 900 } });
     const page = await context.newPage();
-    await page.goto(target);
-    await page.evaluate(() => document.fonts.ready);
-    await page.screenshot({
-      path: path.join(output, "1440-hero-movimiento.png"),
-    });
-    await page.locator("#instituciones").scrollIntoViewIfNeeded();
-    assert.equal(
-      await page
-        .locator(".marquee-track")
-        .evaluate((e) => getComputedStyle(e).animationName),
-      "marquee-travel",
-    );
-    await page.getByRole("button", { name: "Pausar movimiento" }).click();
-    assert.equal(
-      await page
-        .locator(".marquee-track")
-        .evaluate((e) => getComputedStyle(e).animationPlayState),
-      "paused",
-    );
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    page.on("console", (m) => m.type() === "error" && !page.url().includes("pagina-inexistente") && errors.push(m.text()));
+
+    for (const route of routes) {
+      const res = await page.goto(target + route, { waitUntil: "networkidle" });
+      await page.evaluate(() => document.fonts.ready);
+      // Recorre la página para revelar todo y cargar imágenes diferidas.
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 500) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 60));
+        }
+        window.scrollTo(0, 0);
+      });
+      await page.waitForTimeout(400);
+      const data = await page.evaluate(({ WA }) => {
+        const links = [...document.querySelectorAll("a[href]")].map((a) => ({ href: a.getAttribute("href"), target: a.getAttribute("target"), text: (a.textContent || "").trim() }));
+        const wa = links.filter((l) => /wa\.me|whatsapp/i.test(l.href));
+        const tel = links.filter((l) => l.href.startsWith("tel:"));
+        const visible = (sel) => {
+          const el = document.querySelector(sel);
+          if (!el) return false;
+          const r = el.getBoundingClientRect();
+          const cs = getComputedStyle(el);
+          return r.width > 0 && r.height > 0 && cs.visibility !== "hidden" && cs.display !== "none" && r.bottom > 0 && r.top < innerHeight;
+        };
+        const clipped = [...document.querySelectorAll("h1, h2, h3, .btn, .link")]
+          .filter((el) => el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflow !== "visible")
+          .map((el) => (el.textContent || "").trim().slice(0, 40));
+        const offscreen = [...document.querySelectorAll("main *")]
+          .filter((el) => {
+            const r = el.getBoundingClientRect();
+            if (!(r.width > 0 && r.right > document.documentElement.clientWidth + 1) || getComputedStyle(el).position === "fixed") return false;
+            // Lo recortado por un contenedor (paralaje, marcas de agua, marquesina) no desborda.
+            for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+              const o = getComputedStyle(a).overflowX;
+              if (o === "hidden" || o === "clip") return false;
+            }
+            return true;
+          })
+          .slice(0, 5)
+          .map((el) => el.className.toString().slice(0, 60));
+        return {
+          title: document.title,
+          overflow: document.documentElement.scrollWidth > innerWidth,
+          wa,
+          waBad: wa.filter((l) => !l.href.startsWith(WA) || l.target !== "_blank").map((l) => l.href),
+          waSinMensaje: wa.filter((l) => !/\?text=.+/.test(l.href)).map((l) => l.href),
+          tel: [...new Set(tel.map((l) => l.href))],
+          agendar: [...document.querySelectorAll("header a")].some((a) => /Agendar cita/.test(a.textContent) && a.href.startsWith(WA)),
+          agendarVisible: visible(".hdr-cta"),
+          flotante: visible(".wa-float"),
+          barra: visible(".barra"),
+          h1: document.querySelectorAll("h1").length,
+          clipped,
+          offscreen,
+        };
+      }, { WA });
+
+      const tag = `${width}px ${route}`;
+      if (route !== "/pagina-inexistente/" && res.status() !== 200) fail(`${tag}: estado ${res.status()}`);
+      if (data.overflow) fail(`${tag}: desborde horizontal`);
+      if (data.offscreen.length) fail(`${tag}: elementos fuera de pantalla ${data.offscreen.join(" | ")}`);
+      if (data.waBad.length) fail(`${tag}: WhatsApp con número o destino incorrecto ${data.waBad.join(", ")}`);
+      if (data.waSinMensaje.length) fail(`${tag}: WhatsApp sin mensaje prellenado`);
+      const badTel = data.tel.filter((t) => !TELS.includes(t));
+      if (badTel.length) fail(`${tag}: teléfonos no autorizados ${badTel.join(", ")}`);
+      if (!data.agendar || !data.agendarVisible) fail(`${tag}: «Agendar cita» no visible en el encabezado`);
+      if (!data.flotante) fail(`${tag}: falta el botón fijo de WhatsApp`);
+      if (width === 390 && !data.barra) fail(`${tag}: falta la barra móvil`);
+      if (data.h1 !== 1) fail(`${tag}: ${data.h1} elementos h1`);
+      if (data.clipped.length) fail(`${tag}: texto recortado ${data.clipped.join(" | ")}`);
+
+      if (width === 1440 || width === 390) {
+        const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+        for (const v of axe.violations) fail(`${tag}: axe ${v.id} (${v.nodes.length}) ${v.help}`);
+      }
+      report.paginas.push({ ancho: width, ruta: route, titulo: data.title, whatsapp: data.wa.length, telefonos: data.tel });
+    }
+    if (errors.length) fail(`${width}px: errores de consola ${[...new Set(errors)].join(" | ")}`);
     await context.close();
-    fs.writeFileSync("docs/verificacion.json", JSON.stringify(report, null, 2));
-    console.log(JSON.stringify(report, null, 2));
-    assert.equal(report.errors.length, 0);
-    assert(
-      report.axe.every((r) => r.violations.length === 0),
-      "Hay hallazgos de accesibilidad",
-    );
-  } finally {
-    await browser.close();
   }
-})().catch((e) => {
-  console.error(e);
-  process.exitCode = 1;
-});
+
+  // Teclado: el primer Tab lleva al salto de contenido y el foco es visible.
+  {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await page.goto(target + "/", { waitUntil: "networkidle" });
+    await page.keyboard.press("Tab");
+    const skip = await page.evaluate(() => document.activeElement?.className.includes("skip-link"));
+    if (!skip) fail("Teclado: el primer Tab no enfoca «Saltar al contenido»");
+    for (let i = 0; i < 4; i++) await page.keyboard.press("Tab");
+    const outline = await page.evaluate(() => {
+      const el = document.activeElement;
+      const cs = getComputedStyle(el);
+      return cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) >= 2;
+    });
+    if (!outline) fail("Teclado: el foco no es visible en la navegación");
+    // El desplegable de Servicios se abre con teclado y se cierra con Escape.
+    await page.focus(".hdr-chevron");
+    await page.keyboard.press("Enter");
+    const open = await page.getAttribute("#menu-servicios", "data-open");
+    await page.keyboard.press("Escape");
+    const closed = await page.getAttribute("#menu-servicios", "data-open");
+    if (open !== "true" || closed !== "false") fail("Teclado: el desplegable de Servicios no abre o no cierra");
+    await page.close();
+  }
+
+  // Movimiento reducido: todo el contenido revelable visible sin animación.
+  for (const route of ["/", "/proceso/", "/instalaciones/"]) {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+    const page = await context.newPage();
+    await page.goto(target + route, { waitUntil: "networkidle" });
+    const hidden = await page.evaluate(() => [...document.querySelectorAll("[data-rv], [data-rv-lines] .ln > span")].filter((el) => getComputedStyle(el).opacity !== "1" || getComputedStyle(el).transform !== "none").length);
+    const animated = await page.evaluate(() => document.documentElement.classList.contains("mo"));
+    if (hidden || animated) fail(`Movimiento reducido ${route}: ${hidden} elementos ocultos o desplazados`);
+    fs.mkdirSync("docs/screenshots/despues", { recursive: true });
+    await page.screenshot({ path: `docs/screenshots/despues/1440-${route === "/" ? "inicio" : route.replace(/\//g, "")}-movimiento-reducido.png` });
+    await context.close();
+  }
+
+  await browser.close();
+  fs.writeFileSync("docs/verificacion.json", JSON.stringify(report, null, 2));
+  if (report.fallas.length) {
+    console.log(`✗ ${report.fallas.length} fallas:\n- ` + report.fallas.join("\n- "));
+    process.exitCode = 1;
+  } else {
+    console.log(`✓ ${report.paginas.length} combinaciones de página y ancho sin fallas.`);
+  }
+})();

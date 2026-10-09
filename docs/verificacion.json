@@ -1,28 +1,502 @@
 {
   "target": "http://localhost:3080",
-  "viewports": [
-    390,
-    768,
-    1440
-  ],
-  "checks": [
-    "390: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados",
-    "768: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados",
-    "1440: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados"
-  ],
-  "axe": [
+  "fecha": "2026-10-09T04:53:26.034Z",
+  "paginas": [
     {
-      "width": 390,
-      "violations": []
+      "ancho": 390,
+      "ruta": "/",
+      "titulo": "Notaría 80 de Guadalajara | Su patrimonio, en firme.",
+      "whatsapp": 7,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
     },
     {
-      "width": 768,
-      "violations": []
+      "ancho": 390,
+      "ruta": "/servicios/",
+      "titulo": "Servicios notariales | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
     },
     {
-      "width": 1440,
-      "violations": []
+      "ancho": 390,
+      "ruta": "/servicios/traslativos-de-dominio/",
+      "titulo": "Traslativos de dominio | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/servicios/sucesiones/",
+      "titulo": "Sucesiones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/servicios/corporativo/",
+      "titulo": "Corporativo | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/servicios/poderes-notariales/",
+      "titulo": "Poderes notariales | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/servicios/certificaciones/",
+      "titulo": "Certificaciones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/servicios/asesoria-legal/",
+      "titulo": "Asesoría legal | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/servicios/creditos-hipotecarios/",
+      "titulo": "Créditos hipotecarios e instituciones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/proceso/",
+      "titulo": "Proceso notarial | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/instalaciones/",
+      "titulo": "Instalaciones | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/notaria/",
+      "titulo": "La Notaría y su titular | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/contacto/",
+      "titulo": "Contacto y citas | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/aviso-de-privacidad/",
+      "titulo": "Aviso de privacidad | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 390,
+      "ruta": "/pagina-inexistente/",
+      "titulo": "Página no encontrada | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/",
+      "titulo": "Notaría 80 de Guadalajara | Su patrimonio, en firme.",
+      "whatsapp": 7,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/",
+      "titulo": "Servicios notariales | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/traslativos-de-dominio/",
+      "titulo": "Traslativos de dominio | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/sucesiones/",
+      "titulo": "Sucesiones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/corporativo/",
+      "titulo": "Corporativo | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/poderes-notariales/",
+      "titulo": "Poderes notariales | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/certificaciones/",
+      "titulo": "Certificaciones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/asesoria-legal/",
+      "titulo": "Asesoría legal | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/servicios/creditos-hipotecarios/",
+      "titulo": "Créditos hipotecarios e instituciones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/proceso/",
+      "titulo": "Proceso notarial | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/instalaciones/",
+      "titulo": "Instalaciones | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/notaria/",
+      "titulo": "La Notaría y su titular | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/contacto/",
+      "titulo": "Contacto y citas | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/aviso-de-privacidad/",
+      "titulo": "Aviso de privacidad | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 768,
+      "ruta": "/pagina-inexistente/",
+      "titulo": "Página no encontrada | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/",
+      "titulo": "Notaría 80 de Guadalajara | Su patrimonio, en firme.",
+      "whatsapp": 7,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/",
+      "titulo": "Servicios notariales | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/traslativos-de-dominio/",
+      "titulo": "Traslativos de dominio | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/sucesiones/",
+      "titulo": "Sucesiones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/corporativo/",
+      "titulo": "Corporativo | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/poderes-notariales/",
+      "titulo": "Poderes notariales | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/certificaciones/",
+      "titulo": "Certificaciones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/asesoria-legal/",
+      "titulo": "Asesoría legal | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/servicios/creditos-hipotecarios/",
+      "titulo": "Créditos hipotecarios e instituciones | Notaría 80 Guadalajara",
+      "whatsapp": 6,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/proceso/",
+      "titulo": "Proceso notarial | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/instalaciones/",
+      "titulo": "Instalaciones | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/notaria/",
+      "titulo": "La Notaría y su titular | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/contacto/",
+      "titulo": "Contacto y citas | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/aviso-de-privacidad/",
+      "titulo": "Aviso de privacidad | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
+    },
+    {
+      "ancho": 1440,
+      "ruta": "/pagina-inexistente/",
+      "titulo": "Página no encontrada | Notaría 80 Guadalajara",
+      "whatsapp": 5,
+      "telefonos": [
+        "tel:+523319833354",
+        "tel:+523319833355",
+        "tel:+523336306433"
+      ]
     }
   ],
-  "errors": []
+  "fallas": []
 }

@@ -33,7 +33,14 @@ export function ServiceIndex({ size = "full" }: { size?: "full" | "compact" }) {
     <div className="svc relative" data-size={size}>
       <ul ref={list} className="border-b border-[var(--rule)]" onPointerMove={move} onPointerLeave={() => setActive(null)}>
         {services.map((s, i) => (
-          <li key={s.slug} className="border-t border-[var(--rule)]" data-rv style={{ "--d": `${i * 50}ms` } as React.CSSProperties}>
+          <li
+            key={s.slug}
+            // En /servicios el índice está sobre el pliegue y es el LCP: se pinta de inmediato.
+            // En el inicio, más abajo, entra al hacer scroll.
+            className="border-t border-[var(--rule)]"
+            {...(size === "full" ? {} : { "data-rv": "" })}
+            style={{ "--d": `${i * 50}ms` } as React.CSSProperties}
+          >
             <Link href={`/servicios/${s.slug}`} className="svc-row" data-dim={active !== null && active !== i} onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)} onFocus={() => setActive(i)} onBlur={() => setActive(null)}>
               <span className="svc-num">{num(i)}</span>
               <span className="svc-name">{serviceName(s)}</span>
