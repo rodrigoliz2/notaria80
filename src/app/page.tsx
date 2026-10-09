@@ -23,12 +23,12 @@ export default function Home() {
     <Page hero="dark">
       {/* 1. Hero: el muro de lamas. Titular sobre el emblema de latón. */}
       <section className="s-noche lamas seq relative overflow-hidden">
-        <div className="wrap grid min-h-[calc(100svh-var(--bar-h))] content-end gap-y-6 pb-10 pt-[var(--header-h)] lg:gap-y-8 lg:grid-cols-12 lg:gap-x-6 lg:pb-20 lg:pt-[calc(var(--header-h)+48px)]">
+        <div className="hero-layout wrap grid lg:grid-cols-12 lg:gap-x-6">
           {/* Par desfasado: el atrio flota en el vacío superior; solo con pantalla alta. */}
           <div className="hero-atrio">
             <Frame file="01-atrio-doble-altura" reveal="load" delay={420} parallax={false} sizes="18vw" className="aspect-[3/4]" brass caption={{ n: "01", text: "Atrio de doble altura" }} />
           </div>
-          <div className="relative -mx-[var(--gutter)] lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mx-0 lg:self-stretch">
+          <div className="hero-photo relative -mx-[var(--gutter)] lg:col-start-8 lg:col-end-13 lg:mx-0 lg:self-stretch">
             <Frame
               file="02-letrero-logotipo-muro"
               reveal="load"
@@ -36,8 +36,8 @@ export default function Home() {
               priority
               parallax={false}
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="hero-emblem aspect-[16/11] w-full sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[560px]"
-              position="50% 46%"
+              className="hero-emblem aspect-[16/11] w-full sm:aspect-[16/10] lg:aspect-auto"
+              position="50% var(--hero-photo-y, 46%)"
               alt="Logotipo de la Notaría 80 en latón sobre el muro de lamas negras de la recepción"
             />
           </div>
@@ -47,11 +47,11 @@ export default function Home() {
             </p>
             <Lines as="h1" reveal="load" className="t-display mt-5 lg:mt-7" lines={["Su patrimonio,", { text: "en firme.", em: true }]} />
           </div>
-          <div className="relative z-10 grid gap-7 lg:col-start-1 lg:col-end-7 lg:row-start-2 lg:mt-2">
+          <div className="hero-copy relative z-10 grid lg:col-start-1 lg:col-end-7 lg:row-start-2 lg:mt-2">
             <p className="seq-fade t-lead max-w-[40ch] text-[var(--muted)]" style={{ "--d": "620ms" } as React.CSSProperties}>
               Escrituras, testamentos, sociedades y poderes. Atención personalizada y certeza legal en cada firma.
             </p>
-            <div className="seq-fade flex flex-wrap items-center gap-x-8 gap-y-3" style={{ "--d": "760ms" } as React.CSSProperties}>
+            <div className="hero-actions seq-fade flex flex-wrap items-center gap-x-8 gap-y-3" style={{ "--d": "760ms" } as React.CSSProperties}>
               <WhatsAppButton size="lg" origin="hero">Escribir por WhatsApp</WhatsAppButton>
               <CallLink label="Llamar" className="hidden md:inline-flex" />
             </div>

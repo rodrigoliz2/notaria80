@@ -29,9 +29,11 @@ npm run test:e2e
 
 Si usó el puerto alternativo: `TARGET_URL=http://localhost:3081 npm run test:e2e`.
 
-## 2. Publicar en Vercel desde esta carpeta
+## 2. Publicar en Vercel
 
-No es necesario crear un repositorio remoto. Inicie sesión y vincule la carpeta al proyecto correcto de su cuenta:
+El repositorio `https://github.com/rodrigoliz2/notaria80` ya puede conectarse al proyecto de Vercel. Use la rama `main` como rama de producción y la raíz del repositorio como Root Directory. Cada push a esa rama inicia un despliegue si la integración con GitHub está activa. Revise que el despliegue nuevo corresponda al commit recién publicado y termine en estado **Ready**.
+
+También puede publicar desde esta carpeta mediante la CLI. Inicie sesión y vincule la carpeta al proyecto correcto de su cuenta:
 
 ```sh
 npx vercel login
@@ -50,7 +52,9 @@ En el panel del proyecto, configure la entrega como sitio estático:
 | Node.js Version | 24.x |
 | Variables de entorno obligatorias | Ninguna |
 
-`vercel.json` ya declara el comando de build, `out/`, las cabeceras y las redirecciones del sitio anterior. Conserve ese archivo en la raíz. Solo se sirve el contenido de `out/`, no la documentación fuente del proyecto.
+`vercel.json` declara `framework: null` (preset **Other**), `npm ci`, el comando de build, `out/`, las cabeceras y las redirecciones del sitio anterior. Estas propiedades prevalecen sobre los ajustes equivalentes del panel. Conserve ese archivo en la raíz. Solo se sirve el contenido de `out/`, no la documentación fuente del proyecto.
+
+Si el registro indica que falta `out/routes-manifest.json`, Vercel está intentando procesar la exportación estática con el adaptador de Next.js. Ese manifiesto pertenece a `.next/`; no se debe copiar a `out/`. La configuración explícita `framework: null` evita esa combinación. Lance un despliegue del commit que contiene esta corrección; volver a desplegar un commit anterior reutiliza su configuración anterior.
 
 Genere primero una vista previa:
 
@@ -85,7 +89,7 @@ Espere a que Vercel muestre el dominio correctamente configurado y el certificad
 
 ## 5. Actualizar o restaurar
 
-Para posteriores cambios, repita lint, typecheck y build; después `npx vercel deploy` y `npx vercel deploy --prod`.
+Para posteriores cambios, repita lint, typecheck y build; después publique el commit en `main` para activar la integración con Vercel. Como alternativa, use `npx vercel deploy` y `npx vercel deploy --prod`.
 
 Para restaurar, abra Deployments en el proyecto y utilice la opción de rollback al despliegue de producción anterior disponible. Conserve la versión de código correspondiente y no elimine el despliegue anterior durante el lanzamiento.
 

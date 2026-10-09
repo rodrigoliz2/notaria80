@@ -13,7 +13,7 @@
     "audit": "node scripts/lighthouse.mjs"
   },
   "engines": {
-    "node": ">=20.9"
+    "node": "24.x"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.49.0",

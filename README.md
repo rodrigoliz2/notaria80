@@ -18,7 +18,7 @@ Sitio institucional orientado a WhatsApp y llamadas. Está hecho con Next.js 16 
 
 ## Desarrollo
 
-Requiere Node.js 20.9 o posterior.
+Requiere Node.js 24 LTS (`24.x`).
 
 ```sh
 npm install
@@ -36,8 +36,10 @@ npm start       # http://localhost:3080 (otro puerto: PORT=3081 npm start)
 
 ## Despliegue
 
-La guía paso a paso está en [GUIA_PRODUCCION.md](GUIA_PRODUCCION.md). Puede publicar desde esta carpeta mediante Vercel CLI, sin crear un repositorio remoto. `vercel.json` define:
+La guía paso a paso está en [GUIA_PRODUCCION.md](GUIA_PRODUCCION.md). Puede publicar desde el repositorio conectado a Vercel o mediante Vercel CLI. `vercel.json` define:
 
+- el preset estático `Other` mediante `framework: null`;
+- la instalación reproducible con `npm ci`;
 - el comando `npm run build`;
 - el directorio `out/`;
 - las cabeceras;
@@ -80,6 +82,7 @@ Para sustituir una foto por un original de mayor resolución, conserve el nombre
 npm start
 # en otra terminal:
 npm run test:e2e   # contacto, presencia de WhatsApp, desbordes, axe, teclado y movimiento reducido
+node scripts/verify-hero.cjs # botones de portada visibles y libres de superposiciones
 npm run audit      # Lighthouse móvil por página → docs/audits/
 node scripts/capturas.cjs http://localhost:3080 docs/screenshots/despues / /servicios/ …
 ```
