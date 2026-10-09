@@ -1,0 +1,36 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    {
+      "source": "/nosotros.html",
+      "destination": "/#nosotros",
+      "permanent": true
+    },
+    {
+      "source": "/servicios.html",
+      "destination": "/#servicios",
+      "permanent": true
+    },
+    {
+      "source": "/ubicacion.html",
+      "destination": "/#contacto",
+      "permanent": true
+    },
+    { "source": "/mobile/:path*", "destination": "/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    }
+  ]
+}

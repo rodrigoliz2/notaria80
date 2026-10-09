@@ -1,0 +1,28 @@
+{
+  "target": "http://localhost:3080",
+  "viewports": [
+    390,
+    768,
+    1440
+  ],
+  "checks": [
+    "390: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados",
+    "768: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados",
+    "1440: rutas, enlaces reales abiertos (interceptados), servicios, menú, cita, galería, pausa, mapa diferido, cédulas y reduced motion verificados"
+  ],
+  "axe": [
+    {
+      "width": 390,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "violations": []
+    }
+  ],
+  "errors": []
+}
