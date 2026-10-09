@@ -6,7 +6,6 @@
 const { chromium } = require("playwright");
 const AxeBuilder = require("@axe-core/playwright").default;
 const fs = require("node:fs");
-const path = require("node:path");
 
 const target = process.env.TARGET_URL || "http://localhost:3080";
 const WA = "https://wa.me/523311704104";
